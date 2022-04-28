@@ -73,6 +73,6 @@ crashlytics-build.properties
 
 #Custom (Chudroy)
 
-./[Aa]ssets/[Ii]mages/
-./[Aa]ssets/[Aa]udio/
-./[Aa]ssets/[Pp]refab/
+/[Aa]ssets/[Ii]mages/
+/[Aa]ssets/[Aa]udio/
+/[Aa]ssets/[Pp]refab/
