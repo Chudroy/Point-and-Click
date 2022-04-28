@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c6574abce7c904eac425f8b123fffc, type: 3}
+  m_Name: Location02
+  m_EditorClassIdentifier: 
+  backgroundSprite: {fileID: 21300000, guid: 3602a07b176c9a34bbd701e6f0e9ca8e, type: 3}
+  locationObjects:
+  - prefab: {fileID: 2880278537848511180, guid: 99f1cc33a2ba75441a0ed12699bc1ff6, type: 3}
+    rectTransform: {fileID: 1088780575726001599, guid: 99f1cc33a2ba75441a0ed12699bc1ff6, type: 3}
+  - prefab: {fileID: 542356679874341769, guid: 28e13dbb87017b040a052c423db2a64a, type: 3}
+    rectTransform: {fileID: 6615749094123731895, guid: 28e13dbb87017b040a052c423db2a64a, type: 3}
+  - prefab: {fileID: 8585372979098344441, guid: 85b882488905c644190dacc59b0ff272, type: 3}
+    rectTransform: {fileID: 4813407912595811861, guid: 85b882488905c644190dacc59b0ff272, type: 3}
+  - prefab: {fileID: 8585372979098344441, guid: 85b882488905c644190dacc59b0ff272, type: 3}
+    rectTransform: {fileID: 4813407912595811861, guid: 85b882488905c644190dacc59b0ff272, type: 3}
