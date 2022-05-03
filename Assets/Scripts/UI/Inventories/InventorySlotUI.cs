@@ -4,10 +4,11 @@ using UnityEngine.EventSystems;
 using GameDevTV.Inventories;
 using GameDevTV.Core.UI.Dragging;
 using System;
+using InventoryExample.Control;
 
 namespace GameDevTV.UI.Inventories
 {
-    public class InventorySlotUI : MonoBehaviour, IItemHolder, IDragContainer<InventoryItem>
+    public class InventorySlotUI : MonoBehaviour, IItemHolder, IRaycastable
     {
         // CONFIG DATA
         [SerializeField] InventoryItemIcon icon = null;
@@ -23,6 +24,7 @@ namespace GameDevTV.UI.Inventories
         {
             this.inventory = inventory;
             this.index = index;
+            this.item = GetItem();
             icon.SetItem(inventory.GetItemInSlot(index), inventory.GetNumberInSlot(index));
         }
 
@@ -53,6 +55,20 @@ namespace GameDevTV.UI.Inventories
         public void RemoveItems(int number)
         {
             inventory.RemoveFromSlot(index, number);
+        }
+
+        public CursorType GetCursorType()
+        {
+            return CursorType.None;
+        }
+
+        public bool HandleRaycast(PlayerController callingController)
+        {
+            if (Input.GetMouseButtonDown(0) && item != null)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

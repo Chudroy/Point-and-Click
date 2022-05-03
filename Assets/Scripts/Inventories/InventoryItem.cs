@@ -63,20 +63,21 @@ namespace GameDevTV.Inventories
             if (itemID == null || !itemLookupCache.ContainsKey(itemID)) return null;
             return itemLookupCache[itemID];
         }
-        
+
         /// <summary>
         /// Spawn the pickup gameobject into the world.
         /// </summary>
         /// <param name="position">Where to spawn the pickup.</param>
         /// <param name="number">How many instances of the item does the pickup represent.</param>
         /// <returns>Reference to the pickup object spawned.</returns>
-        public Pickup SpawnPickup(Vector3 position, int number)
-        {
-            var pickup = Instantiate(this.pickup);
-            pickup.transform.position = position;
-            pickup.Setup(this, number);
-            return pickup;
-        }
+
+        // public Pickup SpawnPickup(Vector3 position, int number)
+        // {
+        //     var pickup = Instantiate(this.pickup);
+        //     pickup.transform.position = position;
+        //     pickup.Setup(this, number);
+        //     return pickup;
+        // }
 
         public Sprite GetIcon()
         {
@@ -92,7 +93,7 @@ namespace GameDevTV.Inventories
         {
             return stackable;
         }
-        
+
         public string GetDisplayName()
         {
             return displayName;
@@ -104,7 +105,7 @@ namespace GameDevTV.Inventories
         }
 
         // PRIVATE
-        
+
         void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
             // Generate and save a new UUID if this is blank.

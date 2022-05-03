@@ -54,7 +54,6 @@ public class InventoryBarUI : MonoBehaviour
 
     public void ScrollDown()
     {
-        Debug.Log("max inventory row: " + (inventorySlotUIs.Length * rowNumber + inventorySlotUIs.Length));
         if ((inventorySlotUIs.Length * (rowNumber + 1)) + inventorySlotUIs.Length >= playerInventory._inventorySize) return;
         if (playerInventory.GetItemInSlot(inventorySlotUIs.Length * (rowNumber + 1)) == null) return;
         rowNumber++;

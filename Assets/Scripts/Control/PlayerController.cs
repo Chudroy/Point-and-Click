@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
 using UnityEngine.AI;
+using GameDevTV.Inventories;
 
 namespace InventoryExample.Control
 {
@@ -18,11 +19,24 @@ namespace InventoryExample.Control
         [SerializeField] CursorMapping[] cursorMappings = null;
         [SerializeField] float raycastRadius = 1f;
 
+        //TODO make using items on other items work
+        Tool currentTool;
+
         private void Update()
         {
             // if (InteractWithUI()) return;
+            if (UsingTool()) return;
             if (InteractWithComponent()) return;
             // SetCursor(CursorType.None);
+        }
+
+        private bool UsingTool()
+        {
+            if (currentTool != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         private bool InteractWithUI()

@@ -30,15 +30,16 @@ namespace GameDevTV.Inventories
         /// </summary>
         /// <param name="item">The type of item this prefab represents.</param>
         /// <param name="number">The number of items represented.</param>
-        public void Setup(InventoryItem item, int number)
-        {
-            this.item = item;
-            if (!item.IsStackable())
-            {
-                number = 1;
-            }
-            this.number = number;
-        }
+
+        // public void Setup(InventoryItem item, int number)
+        // {
+        //     this.item = item;
+        //     if (!item.IsStackable())
+        //     {
+        //         number = 1;
+        //     }
+        //     this.number = number;
+        // }
 
         public InventoryItem GetItem()
         {
