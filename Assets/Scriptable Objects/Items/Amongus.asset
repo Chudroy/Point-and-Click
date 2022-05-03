@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af8658885b901244baa3bf2dd5cf7346, type: 3}
+  m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
   m_Name: Amongus
   m_EditorClassIdentifier: 
-  itemID: 7fff2050-7b22-404c-9d89-0597844596da
-  displayName: 
-  description: 
-  icon: {fileID: 0}
+  itemID: 2be7a2aa-2727-4b92-bd21-9b23aaccd5f2
+  displayName: Amongus
+  description: "Its an amongus\t"
+  icon: {fileID: 21300000, guid: 7b91b49e3afbbb948a2c24a89bd299d5, type: 3}
   pickup: {fileID: 0}
   stackable: 0

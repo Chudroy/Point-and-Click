@@ -26,6 +26,8 @@ namespace GameDevTV.Inventories
             public int number;
         }
 
+        public int _inventorySize => inventorySize;
+
         // PUBLIC
 
         /// <summary>
@@ -40,6 +42,25 @@ namespace GameDevTV.Inventories
         {
             var player = GameObject.FindWithTag("Player");
             return player.GetComponent<Inventory>();
+        }
+
+        public InventoryItem[] GetItemsOnDisplay(int length, int rowNumber)
+        {
+
+            int startIdx = length * rowNumber;
+
+            InventoryItem[] itemsOnDisplay = new InventoryItem[length];
+
+            int itemsOnDisplayIdx = 0;
+
+            for (int i = startIdx; i < startIdx + length; i++)
+            {
+                Debug.Log(i);
+                itemsOnDisplay[itemsOnDisplayIdx] = slots[i].item;
+                itemsOnDisplayIdx++;
+            }
+
+            return itemsOnDisplay;
         }
 
         /// <summary>

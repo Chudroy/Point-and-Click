@@ -30,7 +30,7 @@ public class Panner : MonoBehaviour
 
     void Move()
     {
-        //lerp pan speed depending on distance of mouseX from centre of screen
+        if (Input.mousePosition.y < 300) return;
 
         rectTransform.localPosition = new Vector3(
             rectTransform.localPosition.x + Time.deltaTime * panSpeed * -GetSpeedFraction(),

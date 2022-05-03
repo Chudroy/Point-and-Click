@@ -41,7 +41,6 @@ namespace InventoryExample.Control
             foreach (RaycastHit hit in hits)
             {
                 IRaycastable[] raycastables = hit.transform.GetComponents<IRaycastable>();
-                Debug.Log(raycastables.Length);
                 foreach (IRaycastable raycastable in raycastables)
                 {
                     if (raycastable.HandleRaycast(this))

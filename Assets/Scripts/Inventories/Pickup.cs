@@ -9,7 +9,7 @@ namespace GameDevTV.Inventories
     public class Pickup : MonoBehaviour
     {
         // STATE
-        InventoryItem item;
+        [SerializeField] InventoryItem item;
         int number = 1;
 
         // CACHED REFERENCE
