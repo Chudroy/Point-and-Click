@@ -20,7 +20,7 @@ namespace InventoryExample.Control
         [SerializeField] float raycastRadius = 1f;
 
         //TODO make using items on other items work
-        Tool currentTool;
+        public Tool currentTool;
 
         private void Update()
         {
@@ -32,11 +32,37 @@ namespace InventoryExample.Control
 
         private bool UsingTool()
         {
-            if (currentTool != null)
+            if (currentTool == null) return false;
+
+            if (Input.GetMouseButtonDown(0))
             {
-                return true;
+                Tool tool = currentTool;
+                currentTool = null;
+
+                RaycastHit[] hits = RaycastAllSorted();
+                foreach (RaycastHit hit in hits)
+                {
+                    Obstacle obstacle = hit.transform.GetComponent<Obstacle>();
+
+                    if (obstacle != null)
+                    {
+                        if (tool.TryOn(obstacle) == true)
+                        {
+                            obstacle.Resolve(tool);
+                            return false;
+                        }
+                        else
+                        {
+                            obstacle.FailTry();
+                            return false;
+                        }
+                    }
+                }
+                Debug.Log("nothing happened");
             }
-            return false;
+
+
+            return true;
         }
 
         private bool InteractWithUI()

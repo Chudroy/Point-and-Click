@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
-  m_Name: Amongus
+  m_Name: Mannequin Head
   m_EditorClassIdentifier: 
-  itemID: 2be7a2aa-2727-4b92-bd21-9b23aaccd5f2
-  displayName: Amongus
-  description: "Its an amongus\t"
-  icon: {fileID: 21300000, guid: 7b91b49e3afbbb948a2c24a89bd299d5, type: 3}
+  itemID: 33b0c463-9b37-4849-abc4-a6f4725ed85d
+  displayName: 
+  description: 
+  icon: {fileID: 0}
   pickup: {fileID: 0}
   stackable: 0
+  toolObstaclePairTitle: 

@@ -64,8 +64,11 @@ namespace GameDevTV.UI.Inventories
 
         public bool HandleRaycast(PlayerController callingController)
         {
-            if (Input.GetMouseButtonDown(0) && item != null)
+            IUsable usableItem = item as IUsable;
+
+            if (Input.GetMouseButtonDown(0) && usableItem != null)
             {
+                usableItem.Use(callingController);
                 return true;
             }
             return false;

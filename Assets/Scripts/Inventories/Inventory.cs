@@ -44,25 +44,6 @@ namespace GameDevTV.Inventories
             return player.GetComponent<Inventory>();
         }
 
-        public InventoryItem[] GetItemsOnDisplay(int length, int rowNumber)
-        {
-
-            int startIdx = length * rowNumber;
-
-            InventoryItem[] itemsOnDisplay = new InventoryItem[length];
-
-            int itemsOnDisplayIdx = 0;
-
-            for (int i = startIdx; i < startIdx + length; i++)
-            {
-                Debug.Log(i);
-                itemsOnDisplay[itemsOnDisplayIdx] = slots[i].item;
-                itemsOnDisplayIdx++;
-            }
-
-            return itemsOnDisplay;
-        }
-
         /// <summary>
         /// Could this item fit anywhere in the inventory?
         /// </summary>

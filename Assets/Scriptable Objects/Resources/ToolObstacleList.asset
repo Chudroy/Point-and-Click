@@ -16,3 +16,21 @@ MonoBehaviour:
   - title: test
     obstacleName: greenSquare
     toolName: amongus
+  - title: mannequinHead
+    obstacleName: mannequinHolder
+    toolName: mannequinHead
+  - title: mannequinLeftArm
+    obstacleName: mannequinHolder
+    toolName: mannequinLeftArm
+  - title: mannequinRightArm
+    obstacleName: mannequinHolder
+    toolName: mannequinRightArm
+  - title: mannequinLeftLeg
+    obstacleName: mannequinHolder
+    toolName: mannequinLeftLeg
+  - title: mannequinRightLeg
+    obstacleName: mannequinHolder
+    toolName: mannequinRightLeg
+  - title: mannequinTorso
+    obstacleName: mannequinHolder
+    toolName: mannequinTorso
