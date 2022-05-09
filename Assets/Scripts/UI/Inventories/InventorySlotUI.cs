@@ -71,6 +71,7 @@ namespace GameDevTV.UI.Inventories
                 usableItem.Use(callingController);
                 return true;
             }
+
             return false;
         }
     }

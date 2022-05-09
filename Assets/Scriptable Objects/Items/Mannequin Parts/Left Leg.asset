@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
-  m_Name: Mannequin Right Leg
+  m_Script: {fileID: 11500000, guid: b12f1650d59e67848a37ed21681380c0, type: 3}
+  m_Name: Left Leg
   m_EditorClassIdentifier: 
-  itemID: 33b0c463-9b37-4849-abc4-a6f4725ed85d
+  itemID: 27e3ae0e-0f04-46a5-8921-8c05aaaa3395
   displayName: 
   description: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 28518464b27ff1d4fabba7ad4f9bbef2, type: 3}
   pickup: {fileID: 0}
   stackable: 0
-  toolObstaclePairTitle: 
+  mannequinPartType: 3

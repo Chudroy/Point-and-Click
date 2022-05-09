@@ -9,33 +9,16 @@ namespace GameDevTV.Inventories
     /// subclass of this.
     /// </summary>
     [CreateAssetMenu(fileName = "Tool", menuName = "ScriptableObjects/Tool")]
-    public class Tool : InventoryItem, IUsable
+    public class Tool : InventoryItem, IUsable, IExaminable
     {
-        ToolObstacleList toolObstacleList;
-        [SerializeField] string toolObstaclePairTitle;
-        string toolName;
-        string targetObstacle;
-        const string Path = "ToolObstacleList";
+        public const string Path = "ContextMenu";
 
-        private void OnEnable()
+        public override void Examine(PlayerController player)
         {
-            toolObstacleList = Resources.Load<ToolObstacleList>(Path);
-            toolName = toolObstacleList.GetPair(toolObstaclePairTitle)._toolName;
-            targetObstacle = toolObstacleList.GetPair(toolObstaclePairTitle)._obstacleName;
+            Debug.Log("examining");
         }
 
-
-        public bool TryOn(Obstacle obstacle)
-        {
-            if (targetObstacle == obstacle._obstacleName)
-            {
-                return true;
-            }
-            return false;
-
-        }
-
-        public void Use(PlayerController playerController)
+        public override void Use(PlayerController playerController)
         {
             playerController.currentTool = this;
         }

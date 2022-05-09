@@ -168,7 +168,8 @@ namespace GameDevTV.Inventories
 
         private void Awake()
         {
-            slots = new InventorySlot[inventorySize];
+            Debug.LogWarning("inventory is not initialized");
+            // slots = new InventorySlot[inventorySize];
         }
 
         /// <summary>

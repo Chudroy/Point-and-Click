@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using InventoryExample.Control;
 using UnityEngine;
 
-public interface IUsable
+public interface IExaminable : IInteractable
 {
-    void Use(PlayerController player);
+    public void Examine(PlayerController player);
 }

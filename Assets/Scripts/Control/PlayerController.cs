@@ -24,7 +24,7 @@ namespace InventoryExample.Control
 
         private void Update()
         {
-            // if (InteractWithUI()) return;
+            if (InteractWithUI()) return;
             if (UsingTool()) return;
             if (InteractWithComponent()) return;
             // SetCursor(CursorType.None);
@@ -46,7 +46,7 @@ namespace InventoryExample.Control
 
                     if (obstacle != null)
                     {
-                        if (tool.TryOn(obstacle) == true)
+                        if (obstacle.CanBeSolvedBy(tool) == true)
                         {
                             obstacle.Resolve(tool);
                             return false;
@@ -60,19 +60,13 @@ namespace InventoryExample.Control
                 }
                 Debug.Log("nothing happened");
             }
-
-
             return true;
         }
 
         private bool InteractWithUI()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
-            {
-                // SetCursor(CursorType.UI);
-                return true;
-            }
-            return false;
+            Debug.Log(ContextMenu.contextMenuIsOpen);
+            return ContextMenu.contextMenuIsOpen;
         }
 
         private bool InteractWithComponent()

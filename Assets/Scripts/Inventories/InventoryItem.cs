@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using InventoryExample.Control;
 using UnityEngine;
 
 namespace GameDevTV.Inventories
@@ -12,7 +13,7 @@ namespace GameDevTV.Inventories
     /// In practice, you are likely to use a subclass such as `ActionItem` or
     /// `EquipableItem`.
     /// </remarks>
-    public abstract class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
+    public abstract class InventoryItem : ScriptableObject, ISerializationCallbackReceiver, IUsable, IExaminable
     {
         // CONFIG DATA
         [Tooltip("Auto-generated UUID for saving/loading. Clear this field if you want to generate a new one.")]
@@ -27,6 +28,7 @@ namespace GameDevTV.Inventories
         [SerializeField] Pickup pickup = null;
         [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
         [SerializeField] bool stackable = false;
+
 
         // STATE
         static Dictionary<string, InventoryItem> itemLookupCache;
@@ -120,5 +122,13 @@ namespace GameDevTV.Inventories
             // Require by the ISerializationCallbackReceiver but we don't need
             // to do anything with it.
         }
+
+        public abstract void Use(PlayerController player);
+
+
+
+        public abstract void Examine(PlayerController player);
+
+
     }
 }
