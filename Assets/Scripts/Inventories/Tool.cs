@@ -8,7 +8,7 @@ namespace GameDevTV.Inventories
     /// An inventory item that can be equipped to the player. Weapons could be a
     /// subclass of this.
     /// </summary>
-    [CreateAssetMenu(fileName = "Tool", menuName = "ScriptableObjects/Tool")]
+    [CreateAssetMenu(fileName = "Tool", menuName = "ScriptableObjects/Tools/DefaultTool")]
     public class Tool : InventoryItem, IUsable, IExaminable
     {
         public const string Path = "ContextMenu";
@@ -21,6 +21,12 @@ namespace GameDevTV.Inventories
         public override void Use(PlayerController playerController)
         {
             playerController.currentTool = this;
+        }
+
+        public virtual void OnResolve()
+        {
+            //On tool resolving an obstacle
+            Debug.Log("On tool resolving an obstacle");
         }
     }
 }

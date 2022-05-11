@@ -1,6 +1,8 @@
 using UnityEngine;
 using GameDevTV.Inventories;
 using InventoryExample.Control;
+using System;
+using System.Collections;
 
 namespace InventoryExample.Control
 {
@@ -8,10 +10,16 @@ namespace InventoryExample.Control
     public class ClickablePickup : MonoBehaviour, IRaycastable
     {
         Pickup pickup;
+        float countDown = 0.5f;
 
-        private void Awake()
+        void Awake()
         {
             pickup = GetComponent<Pickup>();
+        }
+
+        void Update()
+        {
+            countDown -= Time.deltaTime;
         }
 
         public CursorType GetCursorType()
@@ -28,8 +36,9 @@ namespace InventoryExample.Control
 
         public bool HandleRaycast(PlayerController callingController)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && countDown <= 0)
             {
+                Debug.Log("pickup");
                 pickup.PickupItem();
             }
             return true;

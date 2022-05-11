@@ -11,6 +11,7 @@ public class Panner : MonoBehaviour
     [SerializeField] float panSpeed = 1f;
     [SerializeField] float panThreshold = 0.5f;
     float clampVal;
+    bool canPan = true;
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -24,8 +25,11 @@ public class Panner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        ClampToWindow();
+        if (canPan)
+        {
+            Move();
+            ClampToWindow();
+        }
     }
 
     void Move()
@@ -58,9 +62,6 @@ public class Panner : MonoBehaviour
                             rectTransform.localPosition.z
                         );
         }
-
-
-
     }
 
     float GetSpeedFraction()
@@ -79,5 +80,10 @@ public class Panner : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public void SetCanPan(bool b)
+    {
+        canPan = b;
     }
 }

@@ -7,9 +7,21 @@ using UnityEngine.UI;
 public class Location : ScriptableObject
 {
     [SerializeField] Sprite backgroundSprite;
-    [SerializeField] LocationObject[] locationObjects;
-
+    [SerializeField] GameObject locationContainer;
+    [SerializeField] bool pannableArea;
+    RectTransform rectTransform;
     public Sprite _backgroundSprite => backgroundSprite;
-    public LocationObject[] _locationObjects => locationObjects;
+    public GameObject _locationContainer => locationContainer;
+    public RectTransform _rectTransform => rectTransform;
+    public bool _pannableArea => pannableArea;
+
+    private void OnEnable()
+    {
+        rectTransform = locationContainer.GetComponent<RectTransform>();
+    }
+
+
+
+
 
 }

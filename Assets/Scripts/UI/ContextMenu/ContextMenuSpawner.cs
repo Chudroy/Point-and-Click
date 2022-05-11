@@ -86,9 +86,6 @@ public class ContextMenuSpawner : MonoBehaviour, IPointerClickHandler
         int contextMenuCorner = GetCornerIndex(!below, !right);
 
         contextMenu.transform.position = slotCorners[slotCorner] - contextMenuCorners[contextMenuCorner] + contextMenu.transform.position;
-
-        //TODO Position contextmenu corner on current mouse position
-        //alternative: pause all input until contextmenu has been resolved.
     }
 
     private int GetCornerIndex(bool below, bool right)

@@ -18,6 +18,7 @@ public class InventoryBarUI : MonoBehaviour
     private void Awake()
     {
         playerInventory = Inventory.GetPlayerInventory();
+
         inventorySlotUIs = GetComponentsInChildren<InventorySlotUI>();
     }
 

@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: Location01
   m_EditorClassIdentifier: 
   backgroundSprite: {fileID: 21300000, guid: 03a4fa5c7ab92314dae13172022ed38a, type: 3}
-  locationObjects:
-  - prefab: {fileID: 1155691560552562746, guid: 081e7445d4487ff4bad35f793964365a, type: 3}
-    rectTransform: {fileID: 8880457000824563853, guid: 081e7445d4487ff4bad35f793964365a, type: 3}
+  locationContainer: {fileID: 1155691560552562746, guid: 081e7445d4487ff4bad35f793964365a, type: 3}
+  pannableArea: 1

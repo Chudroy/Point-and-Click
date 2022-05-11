@@ -6,12 +6,11 @@ using InventoryExample.Control;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "MannequinPart", menuName = "ScriptableObjects/MannequinPart")]
+[CreateAssetMenu(fileName = "MannequinPart", menuName = "ScriptableObjects/Tools/MannequinPart")]
 public class MannequinItem : Tool
 {
     [SerializeField] MannequinItemType mannequinPartType;
     public MannequinItemType _mannequinPartType => mannequinPartType;
-    List<UnityAction> actions = new List<UnityAction>();
 
     public override void Examine(PlayerController player)
     {

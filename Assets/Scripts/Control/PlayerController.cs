@@ -49,12 +49,13 @@ namespace InventoryExample.Control
                         if (obstacle.CanBeSolvedBy(tool) == true)
                         {
                             obstacle.Resolve(tool);
-                            return false;
+                            tool.OnResolve();
+                            return true;
                         }
                         else
                         {
                             obstacle.FailTry();
-                            return false;
+                            return true;
                         }
                     }
                 }
@@ -65,7 +66,6 @@ namespace InventoryExample.Control
 
         private bool InteractWithUI()
         {
-            Debug.Log(ContextMenu.contextMenuIsOpen);
             return ContextMenu.contextMenuIsOpen;
         }
 

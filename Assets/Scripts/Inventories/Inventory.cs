@@ -44,6 +44,40 @@ namespace GameDevTV.Inventories
             return player.GetComponent<Inventory>();
         }
 
+        // private void Start()
+        // {
+        //     RemoveItem(GetItemInSlot(0));
+        // }
+
+        public void RemoveItem(InventoryItem item)
+        {
+            if (!HasItem(item)) return;
+
+            InventorySlot[] tempArray = new InventorySlot[slots.Length];
+            int tempIdx = 0;
+
+            foreach (InventorySlot slot in slots)
+            {
+                if (slot.item != null && slot.item != item)
+                {
+                    tempArray[tempIdx] = slot;
+                    tempIdx++;
+                }
+            }
+
+            // foreach (InventorySlot tempSlot in tempArray)
+            // {
+            //     Debug.Log((tempSlot.item == null) + "---" + tempSlot.item);
+            // }
+
+            slots = tempArray;
+
+            if (inventoryUpdated != null)
+            {
+                inventoryUpdated();
+            }
+        }
+
         /// <summary>
         /// Could this item fit anywhere in the inventory?
         /// </summary>
@@ -168,8 +202,8 @@ namespace GameDevTV.Inventories
 
         private void Awake()
         {
-            Debug.LogWarning("inventory is not initialized");
-            // slots = new InventorySlot[inventorySize];
+            // Debug.LogWarning("inventory is not initialized");
+            slots = new InventorySlot[inventorySize];
         }
 
         /// <summary>

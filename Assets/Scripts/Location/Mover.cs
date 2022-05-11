@@ -12,7 +12,6 @@ public class Mover : MonoBehaviour
     }
     private void OnMouseOver()
     {
-        Debug.Log("currently over");
     }
 
     private void Move()
