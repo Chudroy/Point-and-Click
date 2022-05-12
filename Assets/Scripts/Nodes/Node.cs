@@ -1,18 +1,64 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-public class Node : MonoBehaviour
+[RequireComponent(typeof(Collider))]
+public abstract class Node : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Transform cameraPosition;
+    public List<Node> reachableNodes = new List<Node>();
+    [HideInInspector] public Collider col;
+    public Node previousLocation;
+    LocationStore locationStore;
+
+    public virtual void Awake()
     {
-        
+        locationStore = LocationStore.GetLocationStore();
+        col = GetComponent<Collider>();
+        col.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public virtual void Leave()
     {
-        
+        SetReachableNodesColliders(false);
     }
+
+    public virtual void Arrive()
+    {
+        if (locationStore._currentNode != null)
+            locationStore._currentNode.Leave();
+
+        GameManager.Instance.cameraRig.AlignToTarget(cameraPosition);
+
+        UpdateNodes();
+    }
+
+    protected void UpdateNodes()
+    {
+        SetCurrentNode();
+        DisableCurrentNodeCollider();
+        SetReachableNodesColliders(true);
+    }
+
+    private void SetCurrentNode()
+    {
+        locationStore._currentNode = this;
+    }
+
+    void DisableCurrentNodeCollider()
+    {
+        col.enabled = false;
+    }
+    public void SetReachableNodesColliders(bool t)
+    {
+        foreach (Node node in reachableNodes)
+        {
+            if (node != null)
+                node.col.enabled = t;
+        }
+    }
+
+
 }

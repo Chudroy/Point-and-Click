@@ -22,15 +22,86 @@ namespace InventoryExample.Control
         //TODO make using items on other items work
         public Tool currentTool;
 
+        RaycastHit[] hits;
+        LocationStore locationStore;
+
+        private void Awake()
+        {
+            locationStore = GetComponent<LocationStore>();
+        }
+
         private void Update()
         {
             if (InteractWithUI()) return;
-            if (UsingTool()) return;
-            if (InteractWithComponent()) return;
-            // SetCursor(CursorType.None);
+            if (HandleRightClick()) return;
+            if (HandleLeftClick()) return;
         }
 
-        private bool UsingTool()
+        bool HandleRightClick()
+        {
+            if (ExitingViewer()) return true;
+            if (ReturningToPreviousLocation()) return true;
+            return false;
+        }
+
+        private bool ExitingViewer()
+        {
+            if (!Input.GetMouseButtonDown(1)) return false;
+
+            if (GameManager.Instance.viewer2D.gameObject.activeInHierarchy == true)
+            {
+                GameManager.Instance.viewer2D.Deactivate();
+                return true;
+            }
+
+            if (GameManager.Instance.viewer3D.gameObject.activeInHierarchy == true)
+            {
+                GameManager.Instance.viewer3D.Deactivate();
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool ReturningToPreviousLocation()
+        {
+            if (!Input.GetMouseButtonDown(1)) return false;
+
+            Location currentLocation = locationStore._currentNode as Location;
+            if (currentLocation != null && currentLocation.isCentralLocation) return false;
+
+            Node previousLocation = locationStore._currentNode.previousLocation;
+            if (previousLocation == null) return false;
+
+            previousLocation.Arrive();
+
+            return true;
+        }
+
+
+        bool HandleLeftClick()
+        {
+            RayCastForInteraction();
+            // if (InteractWithTool()) return true;
+            if (InteractWithComponent()) return true;
+            if (InteractWithMovement()) return true;
+            // SetCursor(CursorType.None);
+            return false;
+        }
+
+        private bool InteractWithUI()
+        {
+            if (ContextMenu.contextMenuIsOpen) return true;
+            if (EventSystem.current.IsPointerOverGameObject()) return true;
+            return false;
+        }
+
+        private void RayCastForInteraction()
+        {
+            hits = RaycastAllSorted();
+        }
+
+        private bool InteractWithTool()
         {
             if (currentTool == null) return false;
 
@@ -39,7 +110,7 @@ namespace InventoryExample.Control
                 Tool tool = currentTool;
                 currentTool = null;
 
-                RaycastHit[] hits = RaycastAllSorted();
+                // RaycastHit[] hits = RaycastAllSorted();
                 foreach (RaycastHit hit in hits)
                 {
                     Obstacle obstacle = hit.transform.GetComponent<Obstacle>();
@@ -64,14 +135,27 @@ namespace InventoryExample.Control
             return true;
         }
 
-        private bool InteractWithUI()
+        private bool InteractWithMovement()
         {
-            return ContextMenu.contextMenuIsOpen;
+            if (!Input.GetMouseButtonDown(0)) return false;
+            Debug.Log("interacting with movement");
+            foreach (RaycastHit hit in hits)
+            {
+                Node node = hit.transform.GetComponent<Node>();
+                if (node != null && node.col.enabled == true)
+                {
+                    node.Arrive();
+                    return true;
+                }
+            }
+            return false;
         }
+
+
 
         private bool InteractWithComponent()
         {
-            RaycastHit[] hits = RaycastAllSorted();
+            // RaycastHit[] hits = RaycastAllSorted();
             foreach (RaycastHit hit in hits)
             {
                 IRaycastable[] raycastables = hit.transform.GetComponents<IRaycastable>();
@@ -89,7 +173,7 @@ namespace InventoryExample.Control
 
         RaycastHit[] RaycastAllSorted()
         {
-            RaycastHit[] hits = Physics.SphereCastAll(GetMouseRay(), raycastRadius);
+            RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
             float[] distances = new float[hits.Length];
             for (int i = 0; i < hits.Length; i++)
             {

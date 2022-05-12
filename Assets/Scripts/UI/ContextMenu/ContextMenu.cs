@@ -24,7 +24,12 @@ public class ContextMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MouseIsOverContextMenu()) return;
+        Debug.Log("updating");
+        if (MouseIsOverContextMenu())
+        {
+            Debug.Log("mouse is over context menu");
+            return;
+        }
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) Destroy(gameObject);
     }
 
@@ -52,7 +57,7 @@ public class ContextMenu : MonoBehaviour
     void SetupButton(UnityAction method, string buttonName)
     {
         GameObject buttonPrefab = Resources.Load<GameObject>(Path);
-        GameObject button = Instantiate(buttonPrefab, GetComponentInChildren<Image>().transform);
+        GameObject button = Instantiate(buttonPrefab, transform.GetChild(0).transform);
         button.GetComponent<Button>().onClick.AddListener(method);
         button.GetComponent<Button>().onClick.AddListener(() => ClearContextMenu());
         button.GetComponent<Button>().GetComponentInChildren<Text>().text = buttonName;
@@ -70,11 +75,15 @@ public class ContextMenu : MonoBehaviour
 
     bool MouseIsOverContextMenu()
     {
-        RaycastHit[] hits = Physics.RaycastAll(GetMouseRay());
-        foreach (RaycastHit hit in hits)
+        List<RaycastResult> hits = new List<RaycastResult>();
+        PointerEventData m_pointerEventData = new PointerEventData(EventSystem.current);
+        m_pointerEventData.position = Input.mousePosition;
+        EventSystem.current.RaycastAll(m_pointerEventData, hits);
+
+        foreach (RaycastResult hit in hits)
         {
-            ContextMenu cm = hit.transform.GetComponent<ContextMenu>();
-            if (cm != null) return true;
+            ContextMenu cm = hit.gameObject.GetComponent<ContextMenu>();
+            Debug.Log(hit.gameObject.name);
         }
         return false;
     }
