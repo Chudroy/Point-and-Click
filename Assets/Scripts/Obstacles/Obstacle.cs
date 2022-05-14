@@ -5,18 +5,10 @@ using GameDevTV.Inventories;
 using UnityEngine;
 using System.Linq;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : Interactable
 {
     [SerializeField] Tool[] solutionTools;
-    // [SerializeField] string toolObstaclePairTitle;
-    // string obstacleName;
-    // const string Path = "ToolObstacleList";
-    // public string _obstacleName => obstacleName;
-    private void Start()
-    {
-        // toolObstacleList = Resources.Load<ToolObstacleList>(Path);
-        // obstacleName = toolObstacleList.GetPair(toolObstaclePairTitle)._obstacleName;
-    }
+
     public virtual void Resolve(GameDevTV.Inventories.Tool tool)
     {
         Debug.Log("resolving obstacle");

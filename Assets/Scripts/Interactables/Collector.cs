@@ -45,7 +45,7 @@ public class Collector : Interactable
         if (this.enabled == false) return false;
         if (countDown >= 0) return false;
         if (!Input.GetMouseButtonDown(0)) return false;
-        pickup.PickupItem();
+        pickup.PickupItem(DestroyOnCollect);
         return true;
     }
 }

@@ -12,12 +12,14 @@ public abstract class Node : MonoBehaviour
     [HideInInspector] public Collider col;
     public Node previousLocation;
     LocationStore locationStore;
+    CameraRig cameraRig;
 
     public virtual void Awake()
     {
         locationStore = LocationStore.GetLocationStore();
         col = GetComponent<Collider>();
         col.enabled = false;
+        cameraRig = GameObject.FindGameObjectWithTag("Core").GetComponentInChildren<CameraRig>();
     }
 
     public virtual void Leave()
@@ -30,7 +32,7 @@ public abstract class Node : MonoBehaviour
         if (locationStore._currentNode != null)
             locationStore._currentNode.Leave();
 
-        GameManager.Instance.cameraRig.AlignToTarget(cameraPosition);
+        cameraRig.AlignToTarget(cameraPosition);
 
         UpdateNodes();
     }

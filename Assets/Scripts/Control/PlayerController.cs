@@ -24,10 +24,20 @@ namespace InventoryExample.Control
 
         RaycastHit[] hits;
         LocationStore locationStore;
+        Viewer3D viewer3D;
+        Viewer2D viewer2D;
+
+        public static PlayerController GetPlayerController()
+        {
+            var player = GameObject.FindWithTag("Player");
+            return player.GetComponent<PlayerController>();
+        }
 
         private void Awake()
         {
             locationStore = GetComponent<LocationStore>();
+            viewer2D = Viewer2D.GetViewer2D();
+            viewer3D = Viewer3D.GetViewer3D();
         }
 
         private void Update()
@@ -48,15 +58,15 @@ namespace InventoryExample.Control
         {
             if (!Input.GetMouseButtonDown(1)) return false;
 
-            if (GameManager.Instance.viewer2D.gameObject.activeInHierarchy == true)
+            if (viewer2D.gameObject.activeInHierarchy == true)
             {
-                GameManager.Instance.viewer2D.Deactivate();
+                viewer2D.Deactivate();
                 return true;
             }
 
-            if (GameManager.Instance.viewer3D.gameObject.activeInHierarchy == true)
+            if (viewer3D.gameObject.activeInHierarchy == true)
             {
-                GameManager.Instance.viewer3D.Deactivate();
+                viewer3D.Deactivate();
                 return true;
             }
 
@@ -82,7 +92,9 @@ namespace InventoryExample.Control
         bool HandleLeftClick()
         {
             RayCastForInteraction();
-            // if (InteractWithTool()) return true;
+            if (InteractWithTool()) return true;
+            //inventory ui components aren't rendered infront of cam anymore, so raycasting for their collider doesn't work
+            //find a new way to raycast for inventory items.
             if (InteractWithComponent()) return true;
             if (InteractWithMovement()) return true;
             // SetCursor(CursorType.None);
@@ -104,7 +116,7 @@ namespace InventoryExample.Control
         private bool InteractWithTool()
         {
             if (currentTool == null) return false;
-
+            Debug.Log("interacting with tool");
             if (Input.GetMouseButtonDown(0))
             {
                 Tool tool = currentTool;
@@ -138,7 +150,6 @@ namespace InventoryExample.Control
         private bool InteractWithMovement()
         {
             if (!Input.GetMouseButtonDown(0)) return false;
-            Debug.Log("interacting with movement");
             foreach (RaycastHit hit in hits)
             {
                 Node node = hit.transform.GetComponent<Node>();

@@ -51,10 +51,10 @@ namespace GameDevTV.Inventories
             return number;
         }
 
-        public void PickupItem()
+        public void PickupItem(bool destroyOnPickup)
         {
             bool foundSlot = inventory.AddToFirstEmptySlot(item, number);
-            if (foundSlot)
+            if (foundSlot && destroyOnPickup)
             {
                 Destroy(gameObject);
             }

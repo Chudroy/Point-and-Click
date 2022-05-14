@@ -7,6 +7,12 @@ public class Viewer2D : ViewerAbstract
     public Image image;
     LocationStore locationStore;
 
+    public static Viewer2D GetViewer2D()
+    {
+        var core = GameObject.FindWithTag("Core");
+        return core.GetComponentInChildren<Viewer2D>(true);
+    }
+
     public void Activate(Sprite sprite)
     {
         locationStore = LocationStore.GetLocationStore();
@@ -18,6 +24,7 @@ public class Viewer2D : ViewerAbstract
 
         gameObject.SetActive(true);
         image.sprite = sprite;
+        image.GetComponent<RectTransform>().sizeDelta = new Vector2(sprite.texture.width, sprite.texture.height);
     }
 
     public override void Deactivate()

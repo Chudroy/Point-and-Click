@@ -8,7 +8,7 @@ using InventoryExample.Control;
 
 namespace GameDevTV.UI.Inventories
 {
-    public class InventorySlotUI : MonoBehaviour, IItemHolder, IRaycastable
+    public class InventorySlotUI : MonoBehaviour, IItemHolder, IPointerClickHandler
     {
         // CONFIG DATA
         [SerializeField] InventoryItemIcon icon = null;
@@ -62,17 +62,25 @@ namespace GameDevTV.UI.Inventories
             return CursorType.None;
         }
 
-        public bool HandleRaycast(PlayerController callingController)
+        // public bool HandleRaycast(PlayerController callingController)
+        // {
+        //     IUsable usableItem = item as IUsable;
+
+        //     if (Input.GetMouseButtonDown(0) && usableItem != null)
+        //     {
+        //         usableItem.Use(callingController);
+        //         return true;
+        //     }
+
+        //     return false;
+        // }
+
+        public void OnPointerClick(PointerEventData eventData)
         {
+            if (eventData.button != PointerEventData.InputButton.Left) return;
             IUsable usableItem = item as IUsable;
-
-            if (Input.GetMouseButtonDown(0) && usableItem != null)
-            {
-                usableItem.Use(callingController);
-                return true;
-            }
-
-            return false;
+            PlayerController playerController = PlayerController.GetPlayerController();
+            usableItem.Use(playerController);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using InventoryExample.Control;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace GameDevTV.Inventories
 {

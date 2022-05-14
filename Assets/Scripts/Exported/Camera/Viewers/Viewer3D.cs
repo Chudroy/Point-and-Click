@@ -13,6 +13,12 @@ public class Viewer3D : ViewerAbstract
     GameObject item;
     LocationStore locationStore;
 
+    public static Viewer3D GetViewer3D()
+    {
+        var core = GameObject.FindGameObjectWithTag("Core");
+        return core.GetComponentInChildren<Viewer3D>(true);
+    }
+
     public override void Update()
     {
         base.Update();
@@ -65,7 +71,7 @@ public class Viewer3D : ViewerAbstract
         locationStore = LocationStore.GetLocationStore();
 
         item = Instantiate(go);
-        item.transform.SetParent(GameManager.Instance.viewer3D.rig);
+        item.transform.SetParent(this.rig);
         item.transform.localPosition = Vector3.zero;
         item.transform.GetChild(0).localPosition = Vector3.zero;
 
@@ -82,12 +88,16 @@ public class Viewer3D : ViewerAbstract
 
     public override void Deactivate()
     {
+
         locationStore = LocationStore.GetLocationStore();
 
         locationStore._currentNode.SetReachableNodesColliders(true);
 
         if (locationStore._currentNode.col != null)
-            locationStore._currentNode.enabled = true;
+        {
+            locationStore._currentNode.col.enabled = true;
+        }
+
 
         Destroy(item);
         rig.rotation = Quaternion.identity;

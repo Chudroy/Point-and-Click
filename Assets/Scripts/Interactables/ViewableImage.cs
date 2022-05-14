@@ -6,7 +6,11 @@ using UnityEngine;
 public class ViewableImage : Interactable
 {
     public Sprite sprite;
-
+    Viewer2D viewer2D;
+    private void Awake()
+    {
+        viewer2D = Viewer2D.GetViewer2D();
+    }
 
     public override void Start()
     {
@@ -21,7 +25,7 @@ public class ViewableImage : Interactable
     {
         if (this.enabled == false) return false;
         if (!Input.GetMouseButtonDown(0)) return false;
-        GameManager.Instance.viewer2D.Activate(sprite);
+        viewer2D.Activate(sprite);
         return true;
     }
 }

@@ -20,6 +20,7 @@ namespace GameDevTV.Inventories
 
         public override void Use(PlayerController playerController)
         {
+            Debug.Log("USING TOOL");
             playerController.currentTool = this;
         }
 
@@ -27,6 +28,7 @@ namespace GameDevTV.Inventories
         {
             //On tool resolving an obstacle
             Debug.Log("On tool resolving an obstacle");
+            Inventory.GetPlayerInventory().RemoveItem(this as InventoryItem, 1);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace GameDevTV.Inventories
         //     RemoveItem(GetItemInSlot(0));
         // }
 
-        public void RemoveItem(InventoryItem item)
+        public void RemoveItem(InventoryItem item, int removeNumber)
         {
             if (!HasItem(item)) return;
 
@@ -58,7 +58,13 @@ namespace GameDevTV.Inventories
 
             foreach (InventorySlot slot in slots)
             {
-                if (slot.item != null && slot.item != item)
+                if (slot.item != null && slot.item == item && removeNumber > 0)
+                {
+                    removeNumber--;
+                    continue;
+                }
+
+                if (slot.item != null)
                 {
                     tempArray[tempIdx] = slot;
                     tempIdx++;

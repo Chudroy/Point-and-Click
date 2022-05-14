@@ -6,8 +6,13 @@ public class KeyboardInputHandler : MonoBehaviour
 {
     [SerializeField] bool isTurning;
     [SerializeField] int turnAngleDegree;
+    GameObject core;
+    CameraRig cameraRig;
 
-    // Start is called before the first frame update
+    private void Awake()
+    {
+        cameraRig = GameObject.FindGameObjectWithTag("Core").GetComponentInChildren<CameraRig>();
+    }
     void Start()
     {
 
@@ -33,12 +38,10 @@ public class KeyboardInputHandler : MonoBehaviour
 
     IEnumerator Turn(int byAngleAmount)
     {
-        var camRig = GameManager.Instance.cameraRig;
-
         isTurning = true;
-        camRig.yAxisRotate(byAngleAmount);
+        cameraRig.yAxisRotate(byAngleAmount);
 
-        yield return new WaitForSeconds(camRig.getTweenDuration);
+        yield return new WaitForSeconds(cameraRig.getTweenDuration);
 
         isTurning = false;
     }

@@ -16,6 +16,11 @@ public class MannequinItem : Tool
     {
         Debug.Log("examining mannequin item");
     }
+
+    public override void OnResolve()
+    {
+        Inventory.GetPlayerInventory().RemoveItem(this as InventoryItem, 1);
+    }
 }
 
 public enum MannequinItemType { Head, LeftArm, RightArm, LeftLeg, RightLeg, Torso }

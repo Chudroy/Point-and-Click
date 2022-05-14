@@ -18,8 +18,16 @@ public class MousePOV : MonoBehaviour
     private Quaternion yAxis;
     private Quaternion xAxis;
     private bool m_cursorIsLocked = true;
-
     private CameraRig cameraRig;
+    Viewer3D viewer3D;
+    Viewer2D viewer2D;
+
+
+    private void Awake()
+    {
+        viewer3D = Viewer3D.GetViewer3D();
+        viewer2D = Viewer2D.GetViewer2D();
+    }
 
     private void Start()
     {
@@ -30,8 +38,8 @@ public class MousePOV : MonoBehaviour
     {
         if (Input.GetMouseButton(2) & (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0))
         {
-            if (GameManager.Instance.viewer2D.gameObject.activeInHierarchy ||
-            GameManager.Instance.viewer3D.gameObject.activeInHierarchy)
+            if (viewer2D.gameObject.activeInHierarchy ||
+           viewer3D.gameObject.activeInHierarchy)
                 return;
 
 

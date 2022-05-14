@@ -15,8 +15,7 @@ public class WorldSpaceMouseInputHandler : MonoBehaviour
 
     void Start()
     {
-        imageViewerCanvas = GameManager.Instance.viewer2D;
-        observerCamera = GameManager.Instance.viewer3D;
+
     }
 
     void Update()

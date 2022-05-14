@@ -83,7 +83,7 @@ public class ContextMenu : MonoBehaviour
         foreach (RaycastResult hit in hits)
         {
             ContextMenu cm = hit.gameObject.GetComponent<ContextMenu>();
-            Debug.Log(hit.gameObject.name);
+            if (cm != null) return true;
         }
         return false;
     }

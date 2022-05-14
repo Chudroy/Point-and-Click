@@ -14,6 +14,6 @@ public class CassetteItem : Tool
     public override void OnResolve()
     {
         Debug.Log("resolving cassette");
-        Inventory.GetPlayerInventory().RemoveItem(this as InventoryItem);
+        Inventory.GetPlayerInventory().RemoveItem(this as InventoryItem, 1);
     }
 }

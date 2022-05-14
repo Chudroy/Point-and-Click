@@ -6,7 +6,7 @@ using GameDevTV.UI.Inventories;
 public class InventoryBarUI : MonoBehaviour
 {
     // CONFIG DATA
-    [SerializeField] InventorySlotUI[] inventorySlotUIs;
+    InventorySlotUI[] inventorySlotUIs;
     InventoryItem[] itemsOnDisplay;
 
     // CACHE
@@ -55,7 +55,8 @@ public class InventoryBarUI : MonoBehaviour
 
     public void ScrollDown()
     {
-        if ((inventorySlotUIs.Length * (rowNumber + 1)) + inventorySlotUIs.Length >= playerInventory._inventorySize) return;
+        Debug.Log("scroll down");
+        if ((inventorySlotUIs.Length * (rowNumber + 1)) + inventorySlotUIs.Length > playerInventory._inventorySize) return;
         if (playerInventory.GetItemInSlot(inventorySlotUIs.Length * (rowNumber + 1)) == null) return;
         rowNumber++;
         Redraw();
@@ -63,6 +64,7 @@ public class InventoryBarUI : MonoBehaviour
 
     public void ScrollUp()
     {
+        Debug.Log("scroll up");
         rowNumber--;
         if (rowNumber <= 0) rowNumber = 0;
         Redraw();

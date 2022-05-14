@@ -5,6 +5,11 @@ using UnityEngine;
 
 public class Observervable : Interactable
 {
+    Viewer3D viewer3D;
+    private void Awake()
+    {
+        viewer3D = Viewer3D.GetViewer3D();
+    }
     public override void Start()
     {
         contextMenuName = "Observe";
@@ -19,7 +24,7 @@ public class Observervable : Interactable
     {
         if (this.enabled == false) return false;
         if (!Input.GetMouseButtonDown(0)) return false;
-        GameManager.Instance.viewer3D.Activate(gameObject);
+        viewer3D.Activate(gameObject);
         return true;
     }
 
