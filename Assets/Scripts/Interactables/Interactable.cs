@@ -8,10 +8,15 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour, IRaycastable
 {
     [HideInInspector] public string contextMenuName = "";
+    [SerializeField] bool disableOnStart = true;
 
     public virtual void Start()
     {
-        this.enabled = false;
+        if (disableOnStart)
+        {
+            this.enabled = false;
+        }
+
     }
 
     public virtual CursorType GetCursorType()

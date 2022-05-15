@@ -19,14 +19,14 @@ namespace InventoryExample.Control
         [SerializeField] CursorMapping[] cursorMappings = null;
         [SerializeField] float raycastRadius = 1f;
 
-        //TODO make using items on other items work
-        public Tool currentTool;
+        //OTHER
 
+        public Tool currentTool;
         RaycastHit[] hits;
         LocationStore locationStore;
         Viewer3D viewer3D;
         Viewer2D viewer2D;
-
+        ExamineTextPoster examineTextPoster;
         public static PlayerController GetPlayerController()
         {
             var player = GameObject.FindWithTag("Player");
@@ -35,6 +35,7 @@ namespace InventoryExample.Control
 
         private void Awake()
         {
+            examineTextPoster = ExamineTextPoster.GetExamineTextPoster();
             locationStore = GetComponent<LocationStore>();
             viewer2D = Viewer2D.GetViewer2D();
             viewer3D = Viewer3D.GetViewer3D();
@@ -116,7 +117,6 @@ namespace InventoryExample.Control
         private bool InteractWithTool()
         {
             if (currentTool == null) return false;
-            Debug.Log("interacting with tool");
             if (Input.GetMouseButtonDown(0))
             {
                 Tool tool = currentTool;
@@ -142,7 +142,7 @@ namespace InventoryExample.Control
                         }
                     }
                 }
-                Debug.Log("nothing happened");
+                examineTextPoster.SetExamineText("nothing happened");
             }
             return true;
         }
@@ -161,8 +161,6 @@ namespace InventoryExample.Control
             }
             return false;
         }
-
-
 
         private bool InteractWithComponent()
         {

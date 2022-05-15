@@ -128,7 +128,7 @@ namespace GameDevTV.Inventories
 
 
 
-        public abstract void Examine(PlayerController player);
+        public abstract void Examine(ExamineTextPoster examineTextPoster);
 
 
     }

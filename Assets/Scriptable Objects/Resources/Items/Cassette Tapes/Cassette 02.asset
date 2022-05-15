@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a4ec4ccb184722488da0d8989758816, type: 3}
+  m_Name: Cassette 02
+  m_EditorClassIdentifier: 
+  itemID: 2d76e965-8733-48fe-9a45-d961d5ba6fb6
+  displayName: 
+  description: It's Cassette 02!
+  icon: {fileID: 21300000, guid: 5c259916fa9a9ac4184612709072747f, type: 3}
+  pickup: {fileID: 0}
+  stackable: 0
+  cassetteModel: {fileID: 3776508616029211778, guid: 0059cb9e6e18996429263e8875c78d51, type: 3}

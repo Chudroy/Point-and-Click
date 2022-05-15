@@ -12,22 +12,23 @@ using UnityEngine.EventSystems;
 public class ContextMenu : MonoBehaviour
 {
     GameObject buttonPrefab;
-    const string Path = "ContextMenuButton";
     PlayerController playerController;
+    ExamineTextPoster examineTextPoster;
+    const string Path = "ContextMenuButton";
     public static bool contextMenuIsOpen;
     // Start is called before the first frame update
     private void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
+        examineTextPoster = ExamineTextPoster.GetExamineTextPoster();
+        Debug.Log(examineTextPoster);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("updating");
         if (MouseIsOverContextMenu())
         {
-            Debug.Log("mouse is over context menu");
             return;
         }
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) Destroy(gameObject);
@@ -50,14 +51,15 @@ public class ContextMenu : MonoBehaviour
 
         if (examinableItem != null)
         {
-            SetupButton(() => examinableItem.Examine(playerController), "Examine");
+            SetupButton(() => examinableItem.Examine(examineTextPoster), "Examine");
         }
     }
 
     void SetupButton(UnityAction method, string buttonName)
     {
         GameObject buttonPrefab = Resources.Load<GameObject>(Path);
-        GameObject button = Instantiate(buttonPrefab, transform.GetChild(0).transform);
+        GameObject buttonGameObject = Instantiate(buttonPrefab, transform.GetChild(0).transform);
+        Button button = buttonGameObject.GetComponent<Button>();
         button.GetComponent<Button>().onClick.AddListener(method);
         button.GetComponent<Button>().onClick.AddListener(() => ClearContextMenu());
         button.GetComponent<Button>().GetComponentInChildren<Text>().text = buttonName;

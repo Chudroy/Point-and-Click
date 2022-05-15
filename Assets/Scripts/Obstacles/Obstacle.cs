@@ -4,19 +4,24 @@ using System.Collections.Generic;
 using GameDevTV.Inventories;
 using UnityEngine;
 using System.Linq;
-
 public class Obstacle : Interactable
 {
     [SerializeField] Tool[] solutionTools;
+    ExamineTextPoster examineTextPoster;
 
-    public virtual void Resolve(GameDevTV.Inventories.Tool tool)
+    private void Awake()
+    {
+        examineTextPoster = ExamineTextPoster.GetExamineTextPoster();
+    }
+
+    public virtual void Resolve(Tool tool)
     {
         Debug.Log("resolving obstacle");
     }
 
     public virtual void FailTry()
     {
-        Debug.Log("failed try");
+        examineTextPoster.SetExamineText("It didn't work");
     }
 
     public bool CanBeSolvedBy(Tool tool) => solutionTools.Any(solutionTool => solutionTool == tool);

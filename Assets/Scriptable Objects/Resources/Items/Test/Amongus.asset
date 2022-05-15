@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f20eb1792e8048a46bf5c7c520a3ea3b, type: 3}
+  m_Name: Amongus
+  m_EditorClassIdentifier: 
+  itemID: 2be7a2aa-2727-4b92-bd21-9b23aaccd5f2
+  displayName: Amongus
+  description: "It's an amongus\t"
+  icon: {fileID: 21300000, guid: 7b91b49e3afbbb948a2c24a89bd299d5, type: 3}
+  pickup: {fileID: 0}
+  stackable: 0

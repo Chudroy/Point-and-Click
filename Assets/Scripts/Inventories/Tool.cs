@@ -11,11 +11,9 @@ namespace GameDevTV.Inventories
     [CreateAssetMenu(fileName = "Tool", menuName = "ScriptableObjects/Tools/DefaultTool")]
     public class Tool : InventoryItem, IUsable, IExaminable
     {
-        public const string Path = "ContextMenu";
-
-        public override void Examine(PlayerController player)
+        public override void Examine(ExamineTextPoster examineTextPoster)
         {
-            Debug.Log("examining");
+            examineTextPoster.SetExamineText(GetDescription());
         }
 
         public override void Use(PlayerController playerController)

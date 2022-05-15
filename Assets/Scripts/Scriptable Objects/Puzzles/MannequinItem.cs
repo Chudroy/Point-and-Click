@@ -12,7 +12,7 @@ public class MannequinItem : Tool
     [SerializeField] MannequinItemType mannequinPartType;
     public MannequinItemType _mannequinPartType => mannequinPartType;
 
-    public override void Examine(PlayerController player)
+    public override void Examine(ExamineTextPoster examineTextPoster)
     {
         Debug.Log("examining mannequin item");
     }

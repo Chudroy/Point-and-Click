@@ -6,6 +6,7 @@ using UnityEngine;
 public class Prop : Node
 {
     Interactable interactable;
+    [SerializeField] private bool canArrive = true;
 
     public override void Awake()
     {
@@ -17,11 +18,13 @@ public class Prop : Node
     {
         if (interactable != null && interactable.enabled)
         {
-            // interactable.Interact();
             return;
         }
 
-        base.Arrive();
+        if (canArrive)
+        {
+            base.Arrive();
+        }
 
         //make this object ineractable if prerequisite is met
 

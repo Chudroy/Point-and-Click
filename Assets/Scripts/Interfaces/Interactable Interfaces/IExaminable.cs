@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IExaminable : IInteractable
 {
-    public void Examine(PlayerController player);
+    public void Examine(ExamineTextPoster examineTextPoster);
 }

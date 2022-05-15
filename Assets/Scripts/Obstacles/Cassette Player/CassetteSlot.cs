@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameDevTV.Inventories;
+using InventoryExample.Control;
 using UnityEngine;
 
 public class CassetteSlot : Obstacle
@@ -15,10 +16,16 @@ public class CassetteSlot : Obstacle
 
         currentCassetteModel = Instantiate(cassetteTool._cassetteModel, Vector3.zero, Quaternion.identity);
         currentCassetteModel.transform.SetParent(this.transform, false);
+        currentCassetteModel.GetComponent<Collider>().enabled = true;
+    }
 
-        // var cassetteRect = cassetteModel.GetComponent<RectTransform>();
-        // var slotRect = GetComponent<RectTransform>();
-        // cassetteRect.anchoredPosition3D = slotRect.anchoredPosition3D;
-        // cassetteRect.sizeDelta = slotRect.sizeDelta;
+    public override bool HandleRaycast(PlayerController callingController)
+    {
+        if (this.enabled == false) return false;
+        if (!Input.GetMouseButtonDown(0)) return false;
+        if (currentCassetteModel != null) return false;
+
+        currentCassetteModel.GetComponent<Interactable>().HandleRaycast(callingController);
+        return true;
     }
 }

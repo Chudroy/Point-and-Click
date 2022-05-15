@@ -32,7 +32,13 @@ namespace RPG.SceneManagement
 
         void HandleDeleteFromInput()
         {
-            if (Input.GetKeyDown(KeyCode.Delete)) savingSystem.Delete(defaultSaveFile);
+
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                Debug.Log("deleting save file");
+                savingSystem.Delete(defaultSaveFile);
+            }
+
         }
 
         void HandleSaveFromInput()
