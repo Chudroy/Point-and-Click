@@ -18,4 +18,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 390d4cf8916a26144ae00e1a787cff68, type: 3}
   pickup: {fileID: 0}
   stackable: 0
-  cassetteModel: {fileID: 5480554850425185610, guid: 2756255ee32b0734fb1c52fb2fb302dc, type: 3}
+  cassetteModel: {fileID: 3776508616029211778, guid: 0059cb9e6e18996429263e8875c78d51, type: 3}

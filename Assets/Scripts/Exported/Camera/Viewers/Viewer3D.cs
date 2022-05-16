@@ -83,11 +83,26 @@ public class Viewer3D : ViewerAbstract
         return q;
     }
 
+    GameObject SetParentForItem(GameObject item)
+    {
+        GameObject parentGameObject = new GameObject();
+        item.transform.SetParent(parentGameObject.transform);
+        return parentGameObject;
+    }
+
     public void Activate(GameObject go)
     {
         locationStore = LocationStore.GetLocationStore();
 
         item = Instantiate(go);
+
+        Debug.Log(go.transform.parent);
+
+        if (go.transform.parent == null)
+        {
+            item = SetParentForItem(item);
+        }
+
         item.transform.SetParent(this.rig);
         item.transform.localPosition = Vector3.zero;
         item.transform.GetChild(0).localPosition = Vector3.zero;
@@ -101,6 +116,8 @@ public class Viewer3D : ViewerAbstract
 
         SetRigActive(true);
     }
+
+
 
     public void Deactivate()
     {
@@ -125,6 +142,9 @@ public class Viewer3D : ViewerAbstract
         panelTransform.gameObject.SetActive(t);
         active = t;
     }
+
+
+
 
     void Zoom()
     {
