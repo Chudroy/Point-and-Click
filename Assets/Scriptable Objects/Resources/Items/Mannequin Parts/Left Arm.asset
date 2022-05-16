@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 18b0439f-ebcf-43b0-bc89-af1c81363a7e
   displayName: 
-  description: 
+  description: it's a mannequin arm!
   icon: {fileID: 21300000, guid: 03c9bcf6cca8d694794bf6932294be63, type: 3}
   pickup: {fileID: 0}
   stackable: 0

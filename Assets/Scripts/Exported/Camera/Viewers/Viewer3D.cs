@@ -1,17 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameDevTV.Inventories;
 using UnityEngine;
 
 public class Viewer3D : ViewerAbstract
 {
     [HideInInspector] public Transform model;
     [Header("make sure obscamera rotation is 0,0,0")]
-    public Transform rig;
-    public float sensitivity = 3f;
+    [SerializeField] Transform rig;
+    [SerializeField] Transform panelTransform;
+    [SerializeField] float sensitivity = 3f;
+    [SerializeField] float scrollSpeed = 1f;
+    Vector3 rigDefaultPosition;
     Quaternion modelRot;
     Quaternion rigRot;
     GameObject item;
     LocationStore locationStore;
+    public bool active = false;
+
+    private void OnEnable()
+    {
+        InventoryItem.ObserveModel += Activate;
+    }
+    private void OnDisable()
+    {
+        InventoryItem.ObserveModel -= Activate;
+    }
+
+    private void Start()
+    {
+        rigDefaultPosition = rig.transform.position;
+    }
 
     public static Viewer3D GetViewer3D()
     {
@@ -19,21 +38,19 @@ public class Viewer3D : ViewerAbstract
         return core.GetComponentInChildren<Viewer3D>(true);
     }
 
-    public override void Update()
+    public void Update()
     {
-        base.Update();
+        if (model == null) return;
 
         if (Input.GetMouseButton(0) & (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0))
         {
-            if (model == null)
-                return;
-
-
             modelRot = model.rotation;
             rigRot = rig.rotation;
 
             ObjectRotation();
         }
+
+        Zoom();
     }
 
     public void ObjectRotation()
@@ -82,13 +99,11 @@ public class Viewer3D : ViewerAbstract
         if (locationStore._currentNode.col != null)
             locationStore._currentNode.col.enabled = false;
 
-        gameObject.SetActive(true);
-
+        SetRigActive(true);
     }
 
-    public override void Deactivate()
+    public void Deactivate()
     {
-
         locationStore = LocationStore.GetLocationStore();
 
         locationStore._currentNode.SetReachableNodesColliders(true);
@@ -98,11 +113,32 @@ public class Viewer3D : ViewerAbstract
             locationStore._currentNode.col.enabled = true;
         }
 
-
         Destroy(item);
         rig.rotation = Quaternion.identity;
+        rig.transform.position = rigDefaultPosition;
+        SetRigActive(false);
+    }
 
-        gameObject.SetActive(false);
+    void SetRigActive(bool t)
+    {
+        rig.gameObject.SetActive(t);
+        panelTransform.gameObject.SetActive(t);
+        active = t;
+    }
+
+    void Zoom()
+    {
+        //scroll model
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        float zScroll = scroll * scrollSpeed;
+
+        rig.transform.Translate(0, 0, zScroll, Space.World);
+
+        //clamp position of model
+        var pos = rig.transform.localPosition;
+        pos.z = Mathf.Clamp(pos.z, 1, 5);
+        rig.transform.localPosition = pos;
+
     }
 }
 

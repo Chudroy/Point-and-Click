@@ -7,12 +7,7 @@ using System.Linq;
 public class Obstacle : Interactable
 {
     [SerializeField] Tool[] solutionTools;
-    ExamineTextPoster examineTextPoster;
-
-    private void Awake()
-    {
-        examineTextPoster = ExamineTextPoster.GetExamineTextPoster();
-    }
+    public static Action<string> LogFailTry;
 
     public virtual void Resolve(Tool tool)
     {
@@ -21,7 +16,7 @@ public class Obstacle : Interactable
 
     public virtual void FailTry()
     {
-        examineTextPoster.SetExamineText("It didn't work");
+        LogFailTry?.Invoke("it didn't work");
     }
 
     public bool CanBeSolvedBy(Tool tool) => solutionTools.Any(solutionTool => solutionTool == tool);

@@ -17,8 +17,6 @@ namespace GameDevTV.UI.Inventories
         int index;
         InventoryItem item;
         Inventory inventory;
-        ExamineTextPoster examineTextPoster;
-
         public void Setup(Inventory inventory, int index)
         {
             this.inventory = inventory;

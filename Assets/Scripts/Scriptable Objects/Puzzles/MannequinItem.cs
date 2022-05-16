@@ -12,11 +12,6 @@ public class MannequinItem : Tool
     [SerializeField] MannequinItemType mannequinPartType;
     public MannequinItemType _mannequinPartType => mannequinPartType;
 
-    public override void Examine(ExamineTextPoster examineTextPoster)
-    {
-        Debug.Log("examining mannequin item");
-    }
-
     public override void OnResolve()
     {
         Inventory.GetPlayerInventory().RemoveItem(this as InventoryItem, 1);

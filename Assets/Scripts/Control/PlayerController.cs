@@ -26,7 +26,8 @@ namespace InventoryExample.Control
         LocationStore locationStore;
         Viewer3D viewer3D;
         Viewer2D viewer2D;
-        ExamineTextPoster examineTextPoster;
+        public static Action LogNothingHappened;
+
         public static PlayerController GetPlayerController()
         {
             var player = GameObject.FindWithTag("Player");
@@ -35,7 +36,6 @@ namespace InventoryExample.Control
 
         private void Awake()
         {
-            examineTextPoster = ExamineTextPoster.GetExamineTextPoster();
             locationStore = GetComponent<LocationStore>();
             viewer2D = Viewer2D.GetViewer2D();
             viewer3D = Viewer3D.GetViewer3D();
@@ -58,15 +58,16 @@ namespace InventoryExample.Control
         private bool ExitingViewer()
         {
             if (!Input.GetMouseButtonDown(1)) return false;
-
+            Debug.Log("exiting viewer");
             if (viewer2D.gameObject.activeInHierarchy == true)
             {
                 viewer2D.Deactivate();
                 return true;
             }
 
-            if (viewer3D.gameObject.activeInHierarchy == true)
+            if (viewer3D.active == true)
             {
+                Debug.Log("deactivating");
                 viewer3D.Deactivate();
                 return true;
             }
@@ -131,18 +132,20 @@ namespace InventoryExample.Control
                     {
                         if (obstacle.CanBeSolvedBy(tool) == true)
                         {
+                            Debug.Log("resolving");
                             obstacle.Resolve(tool);
                             tool.OnResolve();
                             return true;
                         }
                         else
                         {
+                            Debug.Log("fail try");
                             obstacle.FailTry();
                             return true;
                         }
                     }
                 }
-                examineTextPoster.SetExamineText("nothing happened");
+                LogNothingHappened?.Invoke();
             }
             return true;
         }

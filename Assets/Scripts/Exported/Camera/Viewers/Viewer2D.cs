@@ -27,7 +27,7 @@ public class Viewer2D : ViewerAbstract
         image.GetComponent<RectTransform>().sizeDelta = new Vector2(sprite.texture.width, sprite.texture.height);
     }
 
-    public override void Deactivate()
+    public void Deactivate()
     {
         locationStore = LocationStore.GetLocationStore();
 

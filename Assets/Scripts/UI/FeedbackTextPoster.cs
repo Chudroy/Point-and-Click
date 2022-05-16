@@ -1,53 +1,54 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using GameDevTV.Inventories;
+using InventoryExample.Control;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ExamineTextPoster : MonoBehaviour
+public class FeedbackTextPoster : MonoBehaviour
 {
     [SerializeField] float textFadeDelay = 1f;
     [SerializeField] float textFadeOutTime = 1f;
     Coroutine currentFadeRoutine;
     Text text;
+    Image image;
     List<CanvasRenderer> canvasRenderers = new List<CanvasRenderer>();
     float alpha = 1f;
-
-    public static ExamineTextPoster GetExamineTextPoster()
-    {
-        var UICanvas = GameObject.FindWithTag("UICanvas");
-        return UICanvas.GetComponentInChildren<ExamineTextPoster>(true);
-    }
 
     private void Awake()
     {
         text = GetComponentInChildren<Text>();
+        image = GetComponent<Image>();
 
         foreach (CanvasRenderer c in GetComponentsInChildren<CanvasRenderer>(true))
         {
             canvasRenderers.Add(c);
+            c.SetAlpha(0);
         }
 
+        text.enabled = true;
+        image.enabled = true;
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        // DebugCanvasRenderers();
+        PlayerController.LogNothingHappened += PostNothingHappened;
+        Obstacle.LogFailTry += PostFailMessage;
+        InventoryItem.LogExamineText += PostExamineMessage;
     }
 
-    private void DebugCanvasRenderers()
+    private void OnDisable()
     {
-        Debug.Log(canvasRenderers[1].GetAlpha());
+        PlayerController.LogNothingHappened -= PostNothingHappened;
+        Obstacle.LogFailTry -= PostFailMessage;
+        InventoryItem.LogExamineText -= PostExamineMessage;
     }
 
-    public void SetExamineText(string examineText)
+    void SetMessage(string examineText)
     {
-        if (!this.gameObject.activeInHierarchy)
-        {
-            ResetAlpha();
-            this.gameObject.SetActive(true);
-            text.text = examineText;
-        }
+        ResetAlpha();
+        text.text = examineText;
 
         if (currentFadeRoutine != null)
         {
@@ -56,8 +57,6 @@ public class ExamineTextPoster : MonoBehaviour
         }
 
         currentFadeRoutine = StartCoroutine(FadeOutRoutine(textFadeOutTime));
-
-
     }
 
     IEnumerator FadeOutRoutine(float time)
@@ -73,11 +72,6 @@ public class ExamineTextPoster : MonoBehaviour
             }
             yield return null;
         }
-
-        if (alpha <= 0)
-        {
-            this.gameObject.SetActive(false);
-        }
     }
 
     void ResetAlpha()
@@ -87,5 +81,20 @@ public class ExamineTextPoster : MonoBehaviour
             alpha = 1f;
             c.SetAlpha(1f);
         }
+    }
+
+    void PostExamineMessage(string message)
+    {
+        SetMessage(message);
+    }
+
+    void PostFailMessage(string message)
+    {
+        SetMessage(message);
+    }
+
+    void PostNothingHappened()
+    {
+        SetMessage("Nothing Happened");
     }
 }

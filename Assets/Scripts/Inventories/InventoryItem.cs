@@ -34,6 +34,10 @@ namespace GameDevTV.Inventories
         // STATE
         static Dictionary<string, InventoryItem> itemLookupCache;
 
+        // Right Click Events
+        public static Action<string> LogExamineText;
+        public static Action<GameObject> ObserveModel;
+
         // PUBLIC
 
         /// <summary>
@@ -128,7 +132,7 @@ namespace GameDevTV.Inventories
 
 
 
-        public abstract void Examine(ExamineTextPoster examineTextPoster);
+        public abstract void Examine();
 
 
     }

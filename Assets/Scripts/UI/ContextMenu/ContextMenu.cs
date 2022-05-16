@@ -13,15 +13,12 @@ public class ContextMenu : MonoBehaviour
 {
     GameObject buttonPrefab;
     PlayerController playerController;
-    ExamineTextPoster examineTextPoster;
     const string Path = "ContextMenuButton";
     public static bool contextMenuIsOpen;
     // Start is called before the first frame update
     private void Awake()
     {
         playerController = FindObjectOfType<PlayerController>();
-        examineTextPoster = ExamineTextPoster.GetExamineTextPoster();
-        Debug.Log(examineTextPoster);
     }
 
     // Update is called once per frame
@@ -51,7 +48,14 @@ public class ContextMenu : MonoBehaviour
 
         if (examinableItem != null)
         {
-            SetupButton(() => examinableItem.Examine(examineTextPoster), "Examine");
+            SetupButton(() => examinableItem.Examine(), "Examine");
+        }
+
+        IObservable observableItem = item as IObservable;
+
+        if (observableItem != null)
+        {
+            SetupButton(() => observableItem.Observe(), "Observe");
         }
     }
 

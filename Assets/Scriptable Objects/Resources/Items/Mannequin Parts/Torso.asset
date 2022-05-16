@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 3bdc1059-56c6-4c47-a6c0-8cb10c76552c
   displayName: 
-  description: 
+  description: it's a mannequin torso!
   icon: {fileID: 21300000, guid: 9a4e48bae384bec41aac531394d8bb9a, type: 3}
   pickup: {fileID: 0}
   stackable: 0
