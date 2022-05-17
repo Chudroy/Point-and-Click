@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using GameDevTV.Inventories;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Viewer3D : ViewerAbstract
 {
@@ -11,12 +12,18 @@ public class Viewer3D : ViewerAbstract
     [SerializeField] Transform panelTransform;
     [SerializeField] float sensitivity = 3f;
     [SerializeField] float scrollSpeed = 1f;
+    Camera rigCamera;
     Vector3 rigDefaultPosition;
     Quaternion modelRot;
     Quaternion rigRot;
     GameObject item;
     LocationStore locationStore;
     public bool active = false;
+
+    private void Awake()
+    {
+        rigCamera = GetComponent<Camera>();
+    }
 
     private void OnEnable()
     {
@@ -96,8 +103,6 @@ public class Viewer3D : ViewerAbstract
 
         item = Instantiate(go);
 
-        Debug.Log(go.transform.parent);
-
         if (go.transform.parent == null)
         {
             item = SetParentForItem(item);
@@ -114,7 +119,7 @@ public class Viewer3D : ViewerAbstract
         if (locationStore._currentNode.col != null)
             locationStore._currentNode.col.enabled = false;
 
-        SetRigActive(true);
+        SetViewerActive(true);
     }
 
 
@@ -133,18 +138,16 @@ public class Viewer3D : ViewerAbstract
         Destroy(item);
         rig.rotation = Quaternion.identity;
         rig.transform.position = rigDefaultPosition;
-        SetRigActive(false);
+        SetViewerActive(false);
     }
 
-    void SetRigActive(bool t)
+    void SetViewerActive(bool t)
     {
         rig.gameObject.SetActive(t);
         panelTransform.gameObject.SetActive(t);
+        rigCamera.enabled = t;
         active = t;
     }
-
-
-
 
     void Zoom()
     {

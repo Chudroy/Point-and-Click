@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class Viewer2D : ViewerAbstract
+using UnityEngine.EventSystems;
+public class Viewer2D : ViewerAbstract, IPointerClickHandler
 {
     public Image image;
     LocationStore locationStore;
@@ -22,7 +23,7 @@ public class Viewer2D : ViewerAbstract
         if (locationStore._currentNode.col != null)
             locationStore._currentNode.col.enabled = false;
 
-        gameObject.SetActive(true);
+        SetViewerActive(true);
         image.sprite = sprite;
         image.GetComponent<RectTransform>().sizeDelta = new Vector2(sprite.texture.width, sprite.texture.height);
     }
@@ -36,8 +37,21 @@ public class Viewer2D : ViewerAbstract
         if (locationStore._currentNode.col != null)
             locationStore._currentNode.col.enabled = true;
 
-        gameObject.SetActive(false);
+        SetViewerActive(false);
         image.sprite = null;
     }
 
+    void SetViewerActive(bool t)
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(t);
+        }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Right) return;
+        Deactivate();
+    }
 }

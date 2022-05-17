@@ -38,10 +38,6 @@ public class MousePOV : MonoBehaviour
     {
         if (Input.GetMouseButton(2) & (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0))
         {
-            if (viewer2D.gameObject.activeInHierarchy ||
-           viewer3D.gameObject.activeInHierarchy)
-                return;
-
 
             yAxis = cameraRig.yAxis.localRotation;
             xAxis = cameraRig.xAxis.localRotation;

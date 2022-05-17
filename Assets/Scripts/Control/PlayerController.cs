@@ -24,8 +24,6 @@ namespace InventoryExample.Control
         public Tool currentTool;
         RaycastHit[] hits;
         LocationStore locationStore;
-        Viewer3D viewer3D;
-        Viewer2D viewer2D;
         public static Action LogNothingHappened;
 
         public static PlayerController GetPlayerController()
@@ -37,8 +35,6 @@ namespace InventoryExample.Control
         private void Awake()
         {
             locationStore = GetComponent<LocationStore>();
-            viewer2D = Viewer2D.GetViewer2D();
-            viewer3D = Viewer3D.GetViewer3D();
         }
 
         private void Update()
@@ -50,28 +46,7 @@ namespace InventoryExample.Control
 
         bool HandleRightClick()
         {
-            if (ExitingViewer()) return true;
             if (ReturningToPreviousLocation()) return true;
-            return false;
-        }
-
-        private bool ExitingViewer()
-        {
-            if (!Input.GetMouseButtonDown(1)) return false;
-            Debug.Log("exiting viewer");
-            if (viewer2D.gameObject.activeInHierarchy == true)
-            {
-                viewer2D.Deactivate();
-                return true;
-            }
-
-            if (viewer3D.active == true)
-            {
-                Debug.Log("deactivating");
-                viewer3D.Deactivate();
-                return true;
-            }
-
             return false;
         }
 
@@ -95,8 +70,6 @@ namespace InventoryExample.Control
         {
             RayCastForInteraction();
             if (InteractWithTool()) return true;
-            //inventory ui components aren't rendered infront of cam anymore, so raycasting for their collider doesn't work
-            //find a new way to raycast for inventory items.
             if (InteractWithComponent()) return true;
             if (InteractWithMovement()) return true;
             // SetCursor(CursorType.None);

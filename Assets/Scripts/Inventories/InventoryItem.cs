@@ -53,22 +53,27 @@ namespace GameDevTV.Inventories
         {
             if (itemLookupCache == null)
             {
-                itemLookupCache = new Dictionary<string, InventoryItem>();
-                var itemList = Resources.LoadAll<InventoryItem>("");
-                foreach (var item in itemList)
-                {
-                    if (itemLookupCache.ContainsKey(item.itemID))
-                    {
-                        Debug.LogError(string.Format("Looks like there's a duplicate GameDevTV.UI.InventorySystem ID for objects: {0} and {1}", itemLookupCache[item.itemID], item));
-                        continue;
-                    }
-
-                    itemLookupCache[item.itemID] = item;
-                }
+                CreateItemCache();
             }
 
             if (itemID == null || !itemLookupCache.ContainsKey(itemID)) return null;
             return itemLookupCache[itemID];
+        }
+
+        static void CreateItemCache()
+        {
+            itemLookupCache = new Dictionary<string, InventoryItem>();
+            var itemList = Resources.LoadAll<InventoryItem>("");
+            foreach (var item in itemList)
+            {
+                if (itemLookupCache.ContainsKey(item.itemID))
+                {
+                    Debug.LogError(string.Format("Looks like there's a duplicate GameDevTV.UI.InventorySystem ID for objects: {0} and {1}", itemLookupCache[item.itemID], item));
+                    continue;
+                }
+
+                itemLookupCache[item.itemID] = item;
+            }
         }
 
         /// <summary>

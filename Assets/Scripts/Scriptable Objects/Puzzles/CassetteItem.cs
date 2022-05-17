@@ -19,6 +19,6 @@ public class CassetteItem : Tool, IObservable
 
     public override void OnResolve()
     {
-     
+        Inventory.GetPlayerInventory().RemoveItem(this as InventoryItem, 1);
     }
 }

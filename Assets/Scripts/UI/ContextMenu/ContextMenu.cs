@@ -9,12 +9,13 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class ContextMenu : MonoBehaviour
+public class ContextMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     GameObject buttonPrefab;
     PlayerController playerController;
     const string Path = "ContextMenuButton";
     public static bool contextMenuIsOpen;
+    bool mouseIsOverContextMenu;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -24,10 +25,7 @@ public class ContextMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (MouseIsOverContextMenu())
-        {
-            return;
-        }
+        if (mouseIsOverContextMenu) return;
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1)) Destroy(gameObject);
     }
 
@@ -79,23 +77,18 @@ public class ContextMenu : MonoBehaviour
         contextMenuIsOpen = false;
     }
 
-    bool MouseIsOverContextMenu()
-    {
-        List<RaycastResult> hits = new List<RaycastResult>();
-        PointerEventData m_pointerEventData = new PointerEventData(EventSystem.current);
-        m_pointerEventData.position = Input.mousePosition;
-        EventSystem.current.RaycastAll(m_pointerEventData, hits);
-
-        foreach (RaycastResult hit in hits)
-        {
-            ContextMenu cm = hit.gameObject.GetComponent<ContextMenu>();
-            if (cm != null) return true;
-        }
-        return false;
-    }
-
     private static Ray GetMouseRay()
     {
         return Camera.main.ScreenPointToRay(Input.mousePosition);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        mouseIsOverContextMenu = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        mouseIsOverContextMenu = false;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 // [RequireComponent(typeof(Highlighter))]
 public class Prop : Node
@@ -43,5 +44,10 @@ public class Prop : Node
         {
             interactable.enabled = false;
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("clicking on prop");
     }
 }

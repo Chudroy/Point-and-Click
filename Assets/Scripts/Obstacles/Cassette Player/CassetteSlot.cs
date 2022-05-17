@@ -17,25 +17,26 @@ public class CassetteSlot : Obstacle
 
     public override void Resolve(Tool tool)
     {
-        var cassetteTool = tool as CassetteItem;
-        if (cassetteTool == null) Debug.LogWarning("accepted item isn't a cassette");
+        var cassetteItem = tool as CassetteItem;
+        if (cassetteItem == null) Debug.LogWarning("accepted item isn't a cassette");
         if (currentCassetteModel != null) return;
 
-        currentCassetteModel = Instantiate(cassetteTool._cassetteModel, Vector3.zero, Quaternion.identity);
+        currentCassetteModel = Instantiate(cassetteItem._cassetteModel, Vector3.zero, Quaternion.identity);
         currentCassetteModel.transform.SetParent(this.transform, false);
         currentCassetteModel.GetComponent<Collider>().enabled = true;
 
-        playerInventory.RemoveItem(tool as InventoryItem, 1);
+        cassetteItem.OnResolve();
     }
 
     public override bool HandleRaycast(PlayerController callingController)
     {
+        //pick up cassette in slot if the click goes to the cassette slot and not to the cassette interactable model itself.
+
         if (this.enabled == false) return false;
         if (!Input.GetMouseButtonDown(0)) return false;
         if (currentCassetteModel != null) return false;
 
-        Debug.Log("handling raycast cassette");
-        currentCassetteModel.GetComponent<Interactable>().HandleRaycast(callingController);
+        currentCassetteModel?.GetComponent<Interactable>().HandleRaycast(callingController);
         return true;
     }
 }
