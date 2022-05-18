@@ -45,9 +45,4 @@ public class Prop : Node
             interactable.enabled = false;
         }
     }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("clicking on prop");
-    }
 }

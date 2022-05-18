@@ -3,20 +3,41 @@ using System.Collections.Generic;
 using GameDevTV.Inventories;
 using InventoryExample.Control;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CassetteSlot : Obstacle
 {
     //Obstacle should handle removing tool from inventory, because it needs to check if the tool was placed in world space, for example
+
+    //click cool down should be positive number.
+    [SerializeField] float clickCooldown = 1f;
+    float clickTime;
     GameObject currentCassetteModel;
     Inventory playerInventory;
+    public GameObject _currentCassetteModel => currentCassetteModel;
+
 
     private void Awake()
     {
         playerInventory = Inventory.GetPlayerInventory();
     }
 
+    public override void Start()
+    {
+        base.Start();
+        ResetClickCoolDown();
+    }
+
+    private void Update()
+    {
+        clickTime -= Time.deltaTime;
+        clickTime = Mathf.Clamp(clickTime, -1, clickCooldown);
+    }
+
     public override void Resolve(Tool tool)
     {
+        ResetClickCoolDown();
+
         var cassetteItem = tool as CassetteItem;
         if (cassetteItem == null) Debug.LogWarning("accepted item isn't a cassette");
         if (currentCassetteModel != null) return;
@@ -28,15 +49,28 @@ public class CassetteSlot : Obstacle
         cassetteItem.OnResolve();
     }
 
-    public override bool HandleRaycast(PlayerController callingController)
+    public override void OnPointerClick(PointerEventData eventData)
     {
         //pick up cassette in slot if the click goes to the cassette slot and not to the cassette interactable model itself.
+        if (this.enabled == false) return;
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        if (currentCassetteModel == null) return;
+        if (clickTime <= 0)
+        {
+            currentCassetteModel.GetComponent<Interactable>().OnPointerClick(eventData);
+            ResetClickCoolDown();
 
-        if (this.enabled == false) return false;
-        if (!Input.GetMouseButtonDown(0)) return false;
-        if (currentCassetteModel != null) return false;
+        }
+    }
 
-        currentCassetteModel?.GetComponent<Interactable>().HandleRaycast(callingController);
-        return true;
+    bool ClickCoolDownIsOver()
+    {
+        Debug.Log(clickTime <= 0);
+        return clickTime <= 0;
+    }
+
+    void ResetClickCoolDown()
+    {
+        clickTime = clickCooldown;
     }
 }

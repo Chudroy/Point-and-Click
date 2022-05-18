@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Collider))]
-public abstract class Node : MonoBehaviour
+public abstract class Node : MonoBehaviour, IPointerClickHandler
 {
     public Transform cameraPosition;
     public List<Node> reachableNodes = new List<Node>();
@@ -16,6 +17,7 @@ public abstract class Node : MonoBehaviour
 
     public virtual void Awake()
     {
+        gameObject.layer = LayerMask.NameToLayer("Node");
         locationStore = LocationStore.GetLocationStore();
         col = GetComponent<Collider>();
         col.enabled = false;
@@ -62,5 +64,9 @@ public abstract class Node : MonoBehaviour
         }
     }
 
-
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+        Arrive();
+    }
 }

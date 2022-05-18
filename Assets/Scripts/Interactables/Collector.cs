@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using GameDevTV.Inventories;
 using InventoryExample.Control;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Pickup))]
 public class Collector : Interactable
 {
     Pickup pickup;
-    [SerializeField] bool DestroyOnCollect;
+    [SerializeField] bool destroyOnCollect;
     float countDown = 0.5f;
 
     void Awake()
@@ -40,12 +41,13 @@ public class Collector : Interactable
         }
     }
 
-    public override bool HandleRaycast(PlayerController callingController)
+    public override void OnPointerClick(PointerEventData eventData)
     {
-        if (this.enabled == false) return false;
-        if (countDown >= 0) return false;
-        if (!Input.GetMouseButtonDown(0)) return false;
-        pickup.PickupItem(DestroyOnCollect);
-        return true;
+        if (this.enabled == false) return;
+        if (countDown >= 0) return;
+        if (eventData.button != PointerEventData.InputButton.Left) return;
+
+        pickup.PickupItem(destroyOnCollect);
+
     }
 }

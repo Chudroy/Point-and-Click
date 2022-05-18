@@ -18,7 +18,6 @@ public class Viewer3D : ViewerAbstract
     Quaternion rigRot;
     GameObject item;
     LocationStore locationStore;
-    public bool active = false;
 
     private void Awake()
     {
@@ -99,6 +98,9 @@ public class Viewer3D : ViewerAbstract
 
     public void Activate(GameObject go)
     {
+        //static public bool from base class
+        if (active) return;
+
         locationStore = LocationStore.GetLocationStore();
 
         item = Instantiate(go);

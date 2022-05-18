@@ -5,5 +5,5 @@ using UnityEngine;
 
 public interface IUsable : IInteractable
 {
-    public void Use(PlayerController player);
+    public void Use();
 }

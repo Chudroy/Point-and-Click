@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using InventoryExample.Control;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ViewableImage : Interactable
 {
@@ -21,11 +22,12 @@ public class ViewableImage : Interactable
     {
         return base.GetCursorType();
     }
-    public override bool HandleRaycast(PlayerController callingController)
+
+    public override void OnPointerClick(PointerEventData eventData)
     {
-        if (this.enabled == false) return false;
-        if (!Input.GetMouseButtonDown(0)) return false;
+        if (this.enabled == false) return;
+        if (eventData.button != PointerEventData.InputButton.Left) return;
         viewer2D.Activate(sprite);
-        return true;
+        return;
     }
 }

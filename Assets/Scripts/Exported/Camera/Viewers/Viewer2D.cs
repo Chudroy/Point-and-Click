@@ -16,6 +16,9 @@ public class Viewer2D : ViewerAbstract, IPointerClickHandler
 
     public void Activate(Sprite sprite)
     {
+        //static public bool from base class
+        if (active) return;
+
         locationStore = LocationStore.GetLocationStore();
 
         locationStore._currentNode.SetReachableNodesColliders(false);
@@ -43,6 +46,8 @@ public class Viewer2D : ViewerAbstract, IPointerClickHandler
 
     void SetViewerActive(bool t)
     {
+        active = t;
+
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(t);

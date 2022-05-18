@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using InventoryExample.Control;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Prop))]
 [DisallowMultipleComponent]
-public abstract class Interactable : MonoBehaviour, IRaycastable
+public abstract class Interactable : MonoBehaviour, IPointerClickHandler
 {
     [HideInInspector] public string contextMenuName = "";
+
+    //if this is disabled, interactables need two clicks to be able to be interacted with.
     [SerializeField] bool disableOnStart = true;
 
     public virtual void Start()
@@ -24,12 +27,11 @@ public abstract class Interactable : MonoBehaviour, IRaycastable
         return CursorType.None;
     }
 
-    public virtual bool HandleRaycast(PlayerController callingController)
+    public virtual void OnPointerClick(PointerEventData eventData)
     {
-        if (this.enabled == false) return false;
-        if (!Input.GetMouseButtonDown(0)) return false;
+        if (this.enabled == false) return;
+        if (eventData.button != PointerEventData.InputButton.Left) return;
         Debug.Log("interacting with " + name);
-        return true;
     }
 }
 

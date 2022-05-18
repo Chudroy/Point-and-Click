@@ -21,10 +21,10 @@ namespace InventoryExample.Control
 
         //OTHER
 
-        public Tool currentTool;
+        public static Tool currentTool;
         RaycastHit[] hits;
         LocationStore locationStore;
-        public static Action LogNothingHappened;
+        public static Action<string> LogNothingHappened;
 
         public static PlayerController GetPlayerController()
         {
@@ -39,9 +39,9 @@ namespace InventoryExample.Control
 
         private void Update()
         {
+            if (HandleLeftClick()) return;
             if (InteractWithUI()) return;
             if (HandleRightClick()) return;
-            if (HandleLeftClick()) return;
         }
 
         bool HandleRightClick()
@@ -65,13 +65,11 @@ namespace InventoryExample.Control
             return true;
         }
 
-
         bool HandleLeftClick()
         {
             RayCastForInteraction();
             if (InteractWithTool()) return true;
-            if (InteractWithComponent()) return true;
-            if (InteractWithMovement()) return true;
+            // if (InteractWithMovement()) return true;
             // SetCursor(CursorType.None);
             return false;
         }
@@ -93,9 +91,6 @@ namespace InventoryExample.Control
             if (currentTool == null) return false;
             if (Input.GetMouseButtonDown(0))
             {
-                Tool tool = currentTool;
-                currentTool = null;
-
                 // RaycastHit[] hits = RaycastAllSorted();
                 foreach (RaycastHit hit in hits)
                 {
@@ -103,57 +98,25 @@ namespace InventoryExample.Control
 
                     if (obstacle != null)
                     {
-                        if (obstacle.CanBeSolvedBy(tool) == true)
+                        if (obstacle.CanBeSolvedBy(currentTool) == true)
                         {
                             Debug.Log("resolving");
-                            obstacle.Resolve(tool);
-                            tool.OnResolve();
+                            obstacle.Resolve(currentTool);
+                            currentTool = null;
                             return true;
                         }
                         else
                         {
                             Debug.Log("fail try");
                             obstacle.FailTry();
+                            currentTool = null;
                             return true;
                         }
                     }
                 }
-                LogNothingHappened?.Invoke();
+                LogNothingHappened?.Invoke("nothing happened");
             }
             return true;
-        }
-
-        private bool InteractWithMovement()
-        {
-            if (!Input.GetMouseButtonDown(0)) return false;
-            foreach (RaycastHit hit in hits)
-            {
-                Node node = hit.transform.GetComponent<Node>();
-                if (node != null && node.col.enabled == true)
-                {
-                    node.Arrive();
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private bool InteractWithComponent()
-        {
-            // RaycastHit[] hits = RaycastAllSorted();
-            foreach (RaycastHit hit in hits)
-            {
-                IRaycastable[] raycastables = hit.transform.GetComponents<IRaycastable>();
-                foreach (IRaycastable raycastable in raycastables)
-                {
-                    if (raycastable.HandleRaycast(this))
-                    {
-                        // SetCursor(raycastable.GetCursorType());
-                        return true;
-                    }
-                }
-            }
-            return false;
         }
 
         RaycastHit[] RaycastAllSorted()

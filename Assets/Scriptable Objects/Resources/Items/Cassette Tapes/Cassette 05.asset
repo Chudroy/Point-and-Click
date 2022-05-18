@@ -19,3 +19,4 @@ MonoBehaviour:
   pickup: {fileID: 0}
   stackable: 0
   cassetteModel: {fileID: 5047223434196618921, guid: a4dbb72bc75ba444f802b207c4d377a2, type: 3}
+  cassetteType: 3

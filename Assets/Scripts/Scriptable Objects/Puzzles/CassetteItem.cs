@@ -4,13 +4,19 @@ using System.Collections.Generic;
 using GameDevTV.Inventories;
 using UnityEngine;
 
+
 [CreateAssetMenu(fileName = "Cassette", menuName = "ScriptableObjects/Tools/Cassette")]
 
 public class CassetteItem : Tool, IObservable
 {
     Inventory inventory;
     [SerializeField] GameObject cassetteModel;
+    [SerializeField] CassetteType cassetteType;
+    [SerializeField] AudioClip tapeClip;
     public GameObject _cassetteModel => cassetteModel;
+    public CassetteType _cassetteType => cassetteType;
+    public AudioClip _tapeClip => tapeClip;
+
 
     public void Observe()
     {

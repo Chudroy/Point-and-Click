@@ -133,7 +133,7 @@ namespace GameDevTV.Inventories
             // to do anything with it.
         }
 
-        public abstract void Use(PlayerController player);
+        public abstract void Use();
 
 
 

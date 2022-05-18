@@ -39,7 +39,7 @@ public class ContextMenu : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         if (usableItem != null)
         {
-            SetupButton(() => usableItem.Use(playerController), "Use");
+            SetupButton(() => usableItem.Use(), "Use");
         }
 
         IExaminable examinableItem = item as IExaminable;

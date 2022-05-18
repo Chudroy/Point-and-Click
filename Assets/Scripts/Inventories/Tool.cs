@@ -1,6 +1,7 @@
 using System;
 using InventoryExample.Control;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace GameDevTV.Inventories
 {
@@ -17,10 +18,10 @@ namespace GameDevTV.Inventories
             LogExamineText?.Invoke(GetDescription());
         }
 
-        public override void Use(PlayerController playerController)
+        public override void Use()
         {
             Debug.Log("USING TOOL");
-            playerController.currentTool = this;
+            PlayerController.currentTool = this;
         }
 
         public virtual void OnResolve()

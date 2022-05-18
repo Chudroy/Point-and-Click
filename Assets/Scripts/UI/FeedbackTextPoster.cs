@@ -33,16 +33,18 @@ public class FeedbackTextPoster : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerController.LogNothingHappened += PostNothingHappened;
-        Obstacle.LogFailTry += PostFailMessage;
-        InventoryItem.LogExamineText += PostExamineMessage;
+        PlayerController.LogNothingHappened += SetMessage;
+        Obstacle.LogFailTry += SetMessage;
+        InventoryItem.LogExamineText += SetMessage;
+        CassettePlayer.LogCassettePlayerMessage += SetMessage;
     }
 
     private void OnDisable()
     {
-        PlayerController.LogNothingHappened -= PostNothingHappened;
-        Obstacle.LogFailTry -= PostFailMessage;
-        InventoryItem.LogExamineText -= PostExamineMessage;
+        PlayerController.LogNothingHappened -= SetMessage;
+        Obstacle.LogFailTry -= SetMessage;
+        InventoryItem.LogExamineText -= SetMessage;
+        CassettePlayer.LogCassettePlayerMessage -= SetMessage;
     }
 
     void SetMessage(string examineText)
@@ -81,20 +83,5 @@ public class FeedbackTextPoster : MonoBehaviour
             alpha = 1f;
             c.SetAlpha(1f);
         }
-    }
-
-    void PostExamineMessage(string message)
-    {
-        SetMessage(message);
-    }
-
-    void PostFailMessage(string message)
-    {
-        SetMessage(message);
-    }
-
-    void PostNothingHappened()
-    {
-        SetMessage("Nothing Happened");
     }
 }

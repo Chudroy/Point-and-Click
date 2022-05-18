@@ -21,3 +21,4 @@ MonoBehaviour:
   pickup: {fileID: 0}
   stackable: 0
   cassetteModel: {fileID: 1234260817081207519, guid: f9c4c1fb150673f47a0fc96098e398d5, type: 3}
+  cassetteType: 1

@@ -10,6 +10,7 @@ namespace GameDevTV.Inventories
     {
         // STATE
         [SerializeField] InventoryItem item;
+        public InventoryItem _item => item;
         int number = 1;
 
         // CACHED REFERENCE

@@ -59,25 +59,11 @@ namespace GameDevTV.UI.Inventories
             return CursorType.None;
         }
 
-        // public bool HandleRaycast(PlayerController callingController)
-        // {
-        //     IUsable usableItem = item as IUsable;
-
-        //     if (Input.GetMouseButtonDown(0) && usableItem != null)
-        //     {
-        //         usableItem.Use(callingController);
-        //         return true;
-        //     }
-
-        //     return false;
-        // }
-
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button != PointerEventData.InputButton.Left) return;
             IUsable usableItem = item as IUsable;
-            PlayerController playerController = PlayerController.GetPlayerController();
-            usableItem.Use(playerController);
+            usableItem.Use();
         }
     }
 }
