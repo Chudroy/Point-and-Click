@@ -54,6 +54,7 @@ public class CassettePlayer : MonoBehaviour
                 yield break;
             }
         }
+
         yield return StartCoroutine(PlayTapes());
         if (!CheckSolution()) yield break;
         LogCassettePlayerMessage?.Invoke("Solved!");

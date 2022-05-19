@@ -136,8 +136,10 @@ namespace GameDevTV.Inventories
         public abstract void Use();
 
 
-
-        public abstract void Examine();
+        public virtual void Examine()
+        {
+            LogExamineText?.Invoke(description);
+        }
 
 
     }

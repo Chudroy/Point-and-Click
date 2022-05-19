@@ -20,3 +20,4 @@ MonoBehaviour:
   stackable: 0
   cassetteModel: {fileID: 3124188964556657046, guid: 258d1e34857b2be45b80bed9d14efa3d, type: 3}
   cassetteType: 4
+  tapeClip: {fileID: 8300000, guid: f5c36cffe952db94c80e471154f5f107, type: 3}

@@ -14,6 +14,9 @@ public class MousePOV : MonoBehaviour
     public float smoothTime = 5f;
     public bool lockCursor = true;
 
+    public Quaternion _yAxis => yAxis;
+    public Quaternion _xAxis => xAxis;
+
 
     private Quaternion yAxis;
     private Quaternion xAxis;
@@ -27,11 +30,12 @@ public class MousePOV : MonoBehaviour
     {
         viewer3D = Viewer3D.GetViewer3D();
         viewer2D = Viewer2D.GetViewer2D();
+        cameraRig = GetComponent<CameraRig>();
     }
 
     private void Start()
     {
-        cameraRig = GetComponent<CameraRig>();
+
     }
 
     private void Update()

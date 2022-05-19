@@ -19,3 +19,5 @@ MonoBehaviour:
   pickup: {fileID: 0}
   stackable: 0
   cassetteModel: {fileID: 5338690258374415009, guid: 58ab1d963a3a0124181fb0307f2ec1b4, type: 3}
+  cassetteType: 0
+  tapeClip: {fileID: 8300000, guid: 6a1e47af8eb70df458803acd61eb6bc5, type: 3}

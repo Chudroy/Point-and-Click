@@ -2245,6 +2245,10 @@ PrefabInstance:
       propertyPath: reachableNodes.Array.data[1]
       value: 
       objectReference: {fileID: 277484600}
+    - target: {fileID: 2464838860291551296, guid: a18668dfd70c7954899401cfb4c1b1b3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2650088158383789552, guid: a18668dfd70c7954899401cfb4c1b1b3, type: 3}
       propertyPath: clickCooldown
       value: 1
@@ -2262,10 +2266,6 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2650088159555755818, guid: a18668dfd70c7954899401cfb4c1b1b3, type: 3}
-      propertyPath: clickCooldown
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6265481038724949874, guid: a18668dfd70c7954899401cfb4c1b1b3, type: 3}
       propertyPath: clickCooldown
       value: 1
       objectReference: {fileID: 0}
@@ -2488,6 +2488,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 540327075563710781, guid: d03a3c573f04bf54d9ea7cdac18b3de6, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6699372826703702405, guid: d03a3c573f04bf54d9ea7cdac18b3de6, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7727517640682061702, guid: d03a3c573f04bf54d9ea7cdac18b3de6, type: 3}
