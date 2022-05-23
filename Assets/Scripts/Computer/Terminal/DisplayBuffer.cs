@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+
 
 public class DisplayBuffer
 {
@@ -8,6 +11,7 @@ public class DisplayBuffer
 
     InputBuffer inputBuffer;
     const float FLASH_INTERVAL = .5f;
+    const int WRITE_CHAR_DELAY_MILLISECONDS = 10;
     public static bool active = false;
 
     public DisplayBuffer(InputBuffer inputBuffer)
@@ -16,9 +20,20 @@ public class DisplayBuffer
         inputBuffer.onCommandSent += OnCommand;
     }
 
-    public void WriteLine(string line)
+    public async Task WriteLine(string line)
     {
-        logLines.Add(line);
+        await WriteLineRoutine(line);
+    }
+
+    async Task WriteLineRoutine(string line)
+    {
+        foreach (char c in line)
+        {
+            await Task.Delay(WRITE_CHAR_DELAY_MILLISECONDS);
+            inputBuffer.UpdateCurrentInputLine(c);
+        }
+
+        inputBuffer.UpdateCurrentInputLine('\n');
     }
 
     public void Clear()

@@ -24,7 +24,7 @@
         // unless password
     }
 
-    private void UpdateCurrentInputLine(char c)
+    public void UpdateCurrentInputLine(char c)
     {
         if (c == '\b')
         {

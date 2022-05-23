@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -24,17 +25,19 @@ public class Computer : Interactable
         Terminal.ClearScreen();
         EnableComputer(false);
     }
-    public override void OnPointerClick(PointerEventData eventData)
+    public override async void OnPointerClick(PointerEventData eventData)
     {
         if (active) return;
         if (eventData.button != PointerEventData.InputButton.Left) return;
 
         EnableComputer(true);
 
-        Terminal.WriteLine("Cargando… ");
-        Terminal.WriteLine("Computadora de ultraprocesamiento cuántico MARK-31. ");
-        Terminal.WriteLine("Procesamientos en segundo plano: Compilación de datos historicos y sintetización del saber.");
-        Terminal.WriteLine("/ C:/");
+        await Terminal.WriteLine("Cargando… ");
+        await Task.Delay(2000);
+        await Terminal.WriteLine("Computadora de ultraprocesamiento cuántico MARK-31. ");
+        await Terminal.WriteLine("Procesamientos en segundo plano: Compilación de datos historicos y sintetización del saber.");
+        await Task.Delay(500);
+        await Terminal.WriteLine("/ C:/");
     }
 
     public override void LeaveInteractable()

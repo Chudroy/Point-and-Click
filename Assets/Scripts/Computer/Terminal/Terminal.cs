@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Reflection;
+using System.Threading.Tasks;
 
 public class Terminal : MonoBehaviour
 {
@@ -31,9 +32,9 @@ public class Terminal : MonoBehaviour
         primaryTerminal.displayBuffer.Clear();
     }
 
-    public static void WriteLine(string line)
+    public static async Task WriteLine(string line)
     {
-        primaryTerminal.displayBuffer.WriteLine(line);
+        await primaryTerminal.displayBuffer.WriteLine(line);
     }
 
     public void NotifyCommandHandlers(string input)
@@ -51,4 +52,6 @@ public class Terminal : MonoBehaviour
             }
         }
     }
+
+
 }
