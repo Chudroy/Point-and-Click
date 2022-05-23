@@ -76,4 +76,6 @@ crashlytics-build.properties
 /[Aa]ssets/[Ii]mages/
 /[Aa]ssets/[Aa]udio/
 /[Aa]ssets/[Pp]refab/
+/[Aa]ssets/3D Models/
+/[Aa]ssets/Materials/
 /Test Build

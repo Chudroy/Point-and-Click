@@ -19,7 +19,6 @@ public abstract class Interactable : MonoBehaviour, IPointerClickHandler
         {
             this.enabled = false;
         }
-
     }
 
     public virtual CursorType GetCursorType()
@@ -32,6 +31,11 @@ public abstract class Interactable : MonoBehaviour, IPointerClickHandler
         if (this.enabled == false) return;
         if (eventData.button != PointerEventData.InputButton.Left) return;
         Debug.Log("interacting with " + name);
+    }
+
+    public virtual void LeaveInteractable()
+    {
+        Debug.Log("leaving interactable");
     }
 }
 

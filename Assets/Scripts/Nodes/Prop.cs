@@ -43,6 +43,7 @@ public class Prop : Node
         if (interactable != null)
         {
             interactable.enabled = false;
+            interactable.LeaveInteractable();
         }
     }
 }

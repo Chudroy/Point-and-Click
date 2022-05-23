@@ -8,14 +8,21 @@ public class KeyboardInputHandler : MonoBehaviour
     [SerializeField] int turnAngleDegree;
     GameObject core;
     CameraRig cameraRig;
+    bool canTurn;
 
     private void Awake()
     {
         cameraRig = GameObject.FindGameObjectWithTag("Core").GetComponentInChildren<CameraRig>();
     }
-    void Start()
-    {
 
+    private void OnEnable()
+    {
+        Computer.SetPlayKeyboardInput += CanTurn;
+    }
+
+    private void OnDisable()
+    {
+        Computer.SetPlayKeyboardInput -= CanTurn;
     }
 
     // Update is called once per frame
@@ -24,8 +31,15 @@ public class KeyboardInputHandler : MonoBehaviour
         HandleTurnInput();
     }
 
+    void CanTurn(bool t)
+    {
+        canTurn = t;
+    }
+
     void HandleTurnInput()
     {
+        if (!canTurn) return;
+
         if (Input.GetKeyDown(KeyCode.Q) && !isTurning)
         {
             StartCoroutine(Turn(-turnAngleDegree));
