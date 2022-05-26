@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 public class Computer : Interactable
 {
     Keyboard keyboard;
@@ -32,12 +33,16 @@ public class Computer : Interactable
 
         EnableComputer(true);
 
+        PlayerControlToggler.SetControl.Invoke(false, this);
+
         await Terminal.WriteLine("Cargando… ");
         await Task.Delay(2000);
         await Terminal.WriteLine("Computadora de ultraprocesamiento cuántico MARK-31. ");
         await Terminal.WriteLine("Procesamientos en segundo plano: Compilación de datos historicos y sintetización del saber.");
         await Task.Delay(500);
         await Terminal.WriteLine("/ C:/");
+
+        PlayerControlToggler.SetControl.Invoke(true, this);
     }
 
     public override void LeaveInteractable()

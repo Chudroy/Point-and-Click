@@ -8,7 +8,7 @@ public class KeyboardInputHandler : MonoBehaviour
     [SerializeField] int turnAngleDegree;
     GameObject core;
     CameraRig cameraRig;
-    bool canTurn;
+    bool canTurn = true;
 
     private void Awake()
     {

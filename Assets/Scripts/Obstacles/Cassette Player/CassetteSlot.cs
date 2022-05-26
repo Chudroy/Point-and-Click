@@ -42,7 +42,10 @@ public class CassetteSlot : Obstacle
         if (cassetteItem == null) Debug.LogWarning("accepted item isn't a cassette");
         if (currentCassetteModel != null) return;
 
-        currentCassetteModel = Instantiate(cassetteItem._cassetteModel, Vector3.zero, Quaternion.identity);
+        Debug.Log("placing cassette");
+
+        Vector3 cassettePos = new Vector3(0, 0.1f, 0);
+        currentCassetteModel = Instantiate(cassetteItem._cassetteModel, cassettePos, Quaternion.identity);
         currentCassetteModel.transform.SetParent(this.transform, false);
         currentCassetteModel.GetComponent<Collider>().enabled = true;
 

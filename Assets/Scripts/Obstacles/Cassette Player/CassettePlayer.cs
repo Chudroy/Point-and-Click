@@ -11,13 +11,15 @@ public class CassettePlayer : MonoBehaviour
     [SerializeField] InteractableButton button;
     CassetteSlot[] casseteSlots;
     CassetteType[] casseteSolutionArray;
+    CassetteItem[] cassetteItems;
     public static Action<string> LogCassettePlayerMessage;
     AudioSource cassetteAudioPlayer;
-    Coroutine tryCouroutine;
+    Coroutine trySolveRoutine;
 
 
     private void Awake()
     {
+        cassetteItems = new CassetteItem[6];
         casseteSlots = GetComponentsInChildren<CassetteSlot>();
         cassetteAudioPlayer = GetComponent<AudioSource>();
     }
@@ -37,11 +39,10 @@ public class CassettePlayer : MonoBehaviour
         casseteSolutionArray = (CassetteType[])Enum.GetValues(typeof(CassetteType));
     }
 
-
     void TrySolve()
     {
-        if (tryCouroutine != null) return;
-        tryCouroutine = StartCoroutine(SolveRoutine());
+        if (trySolveRoutine != null) return;
+        trySolveRoutine = StartCoroutine(SolveRoutine());
     }
 
     IEnumerator SolveRoutine()
@@ -51,13 +52,46 @@ public class CassettePlayer : MonoBehaviour
             if (slot._currentCassetteModel == null)
             {
                 LogCassettePlayerMessage?.Invoke("Won't play without a cassette in each slot");
+                trySolveRoutine = null;
                 yield break;
             }
         }
 
+        GetCassetteItems();
+        ToggleCollectorScripts(false);
+
         yield return StartCoroutine(PlayTapes());
-        if (!CheckSolution()) yield break;
+
+        if (!CheckSolution())
+        {
+            FinishRoutine();
+            yield break;
+        }
+
         LogCassettePlayerMessage?.Invoke("Solved!");
+        FinishRoutine();
+    }
+
+    void ToggleCollectorScripts(bool t)
+    {
+        foreach (CassetteSlot slot in casseteSlots)
+        {
+            Collector collector = slot._currentCassetteModel.GetComponent<Collector>();
+            Debug.Log("Collector: " + collector);
+            collector._canPickUp = t;
+        }
+    }
+
+    void GetCassetteItems()
+    {
+        for (int i = 0; i < casseteSlots.Length; i++)
+        {
+            GameObject currentModel = casseteSlots[i]._currentCassetteModel;
+            Pickup pickup = currentModel.GetComponent<Pickup>();
+            CassetteItem cassetteItem = pickup._item as CassetteItem;
+
+            cassetteItems[i] = cassetteItem;
+        }
     }
 
     private IEnumerator PlayTapes()
@@ -68,9 +102,8 @@ public class CassettePlayer : MonoBehaviour
 
         for (int i = 0; i < casseteSlots.Length; i++)
         {
-            CassetteItem cassetteItem = casseteSlots[i]._currentCassetteModel.GetComponent<Pickup>()._item as CassetteItem;
-            tapeClips[i] = cassetteItem._tapeClip;
-            Debug.Log(tapeClips[i].name);
+            // CassetteItem cassetteItem = casseteSlots[i]._currentCassetteModel.GetComponent<Pickup>()._item as CassetteItem;
+            tapeClips[i] = cassetteItems[i]._tapeClip;
         }
 
         foreach (AudioClip tape in tapeClips)
@@ -88,9 +121,9 @@ public class CassettePlayer : MonoBehaviour
 
         foreach (CassetteSlot slot in casseteSlots)
         {
-            CassetteItem cassetteItem = slot._currentCassetteModel.GetComponent<Pickup>()._item as CassetteItem;
+            // CassetteItem cassetteItem = slot._currentCassetteModel.GetComponent<Pickup>()._item as CassetteItem;
 
-            if (cassetteItem._cassetteType != casseteSolutionArray[idx])
+            if (cassetteItems[idx]._cassetteType != casseteSolutionArray[idx])
             {
                 LogCassettePlayerMessage?.Invoke("Incorrect Order");
                 return false;
@@ -99,6 +132,12 @@ public class CassettePlayer : MonoBehaviour
             idx++;
         }
         return true;
+    }
+
+    private void FinishRoutine()
+    {
+        trySolveRoutine = null;
+        ToggleCollectorScripts(true);
     }
 }
 

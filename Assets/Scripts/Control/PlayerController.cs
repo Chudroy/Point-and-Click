@@ -22,26 +22,44 @@ namespace InventoryExample.Control
         //OTHER
 
         public static Tool currentTool;
+        public static Action<string> LogNothingHappened;
         RaycastHit[] hits;
         LocationStore locationStore;
-        public static Action<string> LogNothingHappened;
+        bool controlEnabled = false;
 
-        public static PlayerController GetPlayerController()
-        {
-            var player = GameObject.FindWithTag("Player");
-            return player.GetComponent<PlayerController>();
-        }
 
         private void Awake()
         {
             locationStore = GetComponent<LocationStore>();
         }
 
+        private void OnEnable()
+        {
+            PlayerControlToggler.SetControl += SetControl;
+        }
+
+        private void OnDisable()
+        {
+            PlayerControlToggler.SetControl -= SetControl;
+        }
+
+        void SetControl(bool t, object sender)
+        {
+            Debug.Log(sender);
+            controlEnabled = t;
+        }
+
         private void Update()
         {
+            if (!EnabledControl()) return;
             if (HandleLeftClick()) return;
             if (InteractWithUI()) return;
             if (HandleRightClick()) return;
+        }
+
+        bool EnabledControl()
+        {
+            return controlEnabled;
         }
 
         bool HandleRightClick()
@@ -89,31 +107,35 @@ namespace InventoryExample.Control
         private bool InteractWithTool()
         {
             if (currentTool == null) return false;
+
             if (Input.GetMouseButtonDown(0))
             {
-                // RaycastHit[] hits = RaycastAllSorted();
+                var tool = currentTool;
+                currentTool = null;
+
                 foreach (RaycastHit hit in hits)
                 {
                     Obstacle obstacle = hit.transform.GetComponent<Obstacle>();
 
                     if (obstacle != null)
                     {
-                        if (obstacle.CanBeSolvedBy(currentTool) == true)
+                        if (obstacle.CanBeSolvedBy(tool) == true)
                         {
                             Debug.Log("resolving");
-                            obstacle.Resolve(currentTool);
-                            currentTool = null;
+                            obstacle.Resolve(tool);
+                            Collector.ResetCountDown();
                             return true;
                         }
                         else
                         {
                             Debug.Log("fail try");
                             obstacle.FailTry();
-                            currentTool = null;
+                            Collector.ResetCountDown();
                             return true;
                         }
                     }
                 }
+                Collector.ResetCountDown();
                 LogNothingHappened?.Invoke("nothing happened");
             }
             return true;

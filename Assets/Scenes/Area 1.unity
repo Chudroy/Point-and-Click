@@ -466,6 +466,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1891395202394691352, guid: d03a3c573f04bf54d9ea7cdac18b3de6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2475871263194741414, guid: d03a3c573f04bf54d9ea7cdac18b3de6, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -476,15 +480,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7727517640682061702, guid: d03a3c573f04bf54d9ea7cdac18b3de6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.010401652
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7727517640682061702, guid: d03a3c573f04bf54d9ea7cdac18b3de6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.860219
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7727517640682061702, guid: d03a3c573f04bf54d9ea7cdac18b3de6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.4517922
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7727517640682061702, guid: d03a3c573f04bf54d9ea7cdac18b3de6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -595,6 +599,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2464838859722501720}
     m_Modifications:
+    - target: {fileID: 4809630006137217593, guid: 9d9f93ad78abcac4e8be0016b5085011, type: 3}
+      propertyPath: _canPickUp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809630006584476369, guid: 9d9f93ad78abcac4e8be0016b5085011, type: 3}
+      propertyPath: _canPickUp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809630006628435116, guid: 9d9f93ad78abcac4e8be0016b5085011, type: 3}
+      propertyPath: _canPickUp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809630006628435116, guid: 9d9f93ad78abcac4e8be0016b5085011, type: 3}
+      propertyPath: disableOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809630007373057887, guid: 9d9f93ad78abcac4e8be0016b5085011, type: 3}
+      propertyPath: _canPickUp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809630007484878073, guid: 9d9f93ad78abcac4e8be0016b5085011, type: 3}
+      propertyPath: _canPickUp
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4809630007574420923, guid: 9d9f93ad78abcac4e8be0016b5085011, type: 3}
+      propertyPath: _canPickUp
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8757431017276919448, guid: 9d9f93ad78abcac4e8be0016b5085011, type: 3}
       propertyPath: m_RootOrder
       value: 3

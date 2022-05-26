@@ -10,7 +10,13 @@ public class Collector : Interactable
 {
     Pickup pickup;
     [SerializeField] bool destroyOnCollect;
-    float countDown = 0.5f;
+    static float countDown = 0.5f;
+    public bool _canPickUp = true;
+
+    public static void ResetCountDown()
+    {
+        countDown = 0.5f;
+    }
 
     void Awake()
     {
@@ -43,6 +49,7 @@ public class Collector : Interactable
 
     public override void OnPointerClick(PointerEventData eventData)
     {
+        if (!_canPickUp) return;
         if (this.enabled == false) return;
         if (countDown >= 0) return;
         if (eventData.button != PointerEventData.InputButton.Left) return;

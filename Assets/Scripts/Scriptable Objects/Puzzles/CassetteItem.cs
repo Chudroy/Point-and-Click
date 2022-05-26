@@ -17,7 +17,6 @@ public class CassetteItem : Tool, IObservable
     public CassetteType _cassetteType => cassetteType;
     public AudioClip _tapeClip => tapeClip;
 
-
     public void Observe()
     {
         ObserveModel?.Invoke(cassetteModel);
