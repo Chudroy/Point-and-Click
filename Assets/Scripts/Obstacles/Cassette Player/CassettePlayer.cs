@@ -11,7 +11,7 @@ public class CassettePlayer : MonoBehaviour
     [SerializeField] InteractableButton button;
     CassetteSlot[] casseteSlots;
     CassetteType[] casseteSolutionArray;
-    CassetteItem[] cassetteItems;
+    PlaceableItem[] cassetteItems;
     public static Action<string> LogCassettePlayerMessage;
     AudioSource cassetteAudioPlayer;
     Coroutine trySolveRoutine;
@@ -19,7 +19,7 @@ public class CassettePlayer : MonoBehaviour
 
     private void Awake()
     {
-        cassetteItems = new CassetteItem[6];
+        cassetteItems = new PlaceableItem[6];
         casseteSlots = GetComponentsInChildren<CassetteSlot>();
         cassetteAudioPlayer = GetComponent<AudioSource>();
     }
@@ -88,7 +88,7 @@ public class CassettePlayer : MonoBehaviour
         {
             GameObject currentModel = casseteSlots[i]._currentCassetteModel;
             Pickup pickup = currentModel.GetComponent<Pickup>();
-            CassetteItem cassetteItem = pickup._item as CassetteItem;
+            PlaceableItem cassetteItem = pickup._item as PlaceableItem;
 
             cassetteItems[i] = cassetteItem;
         }

@@ -38,14 +38,14 @@ public class CassetteSlot : Obstacle
     {
         ResetClickCoolDown();
 
-        var cassetteItem = tool as CassetteItem;
+        var cassetteItem = tool as PlaceableItem;
         if (cassetteItem == null) Debug.LogWarning("accepted item isn't a cassette");
         if (currentCassetteModel != null) return;
 
         Debug.Log("placing cassette");
 
         Vector3 cassettePos = new Vector3(0, 0.1f, 0);
-        currentCassetteModel = Instantiate(cassetteItem._cassetteModel, cassettePos, Quaternion.identity);
+        currentCassetteModel = Instantiate(cassetteItem._Model, cassettePos, Quaternion.identity);
         currentCassetteModel.transform.SetParent(this.transform, false);
         currentCassetteModel.GetComponent<Collider>().enabled = true;
 
